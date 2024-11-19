@@ -241,9 +241,13 @@ $showNovCat = $novCat === 'Novo';
 
                     <div class="form-group mb-3">
                         <label class="form-label">Imagem:</label>
-                        <input class="form-control" type="file" name="file" required>
+                        <input class="form-control" type="file" name="file" style="width: 50%;">
                     </div>
                 </div>
+            </div>
+            <div class="row mt-4 btn-group-custom">
+                <button type="reset" class="btn btn-outline-danger btn-personalizado">Cancelar</button>
+                <button type="submit" class="btn btn-success btn-personalizado">Cadastrar produto</button>
             </div>
         </form>
     </div>

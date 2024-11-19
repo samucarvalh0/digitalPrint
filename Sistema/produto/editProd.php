@@ -245,14 +245,14 @@ if (isset($_POST['edit'])) {
                                     <?php echo ($registro['valor']); ?>
                                 </div>
                             </td>
-                            <td>
+                            <td class="text-truncate">
                                 <div class="row justify-content-center registro">
                                     <?php echo ($registro['imagem']); ?>
                                 </div>
                             </td>
                             <td>
                                 <div class="row text-center justify-content-center operacoes">
-                                    <div class="col-2 oprBtn">
+                                    <div class="col-3 oprBtn">
                                         <form method="POST">
                                             <input type="hidden" name="codPro" value="<?php echo $registro['codPro']; ?>">
                                             <button type="submit" name="delete" class="btn btn-outline-danger">
@@ -264,7 +264,7 @@ if (isset($_POST['edit'])) {
                                             </button>
                                         </form>
                                     </div>
-                                    <div class="col-2 oprBtn">
+                                    <div class="col-3 oprBtn">
                                         <form method="POST">
                                             <input type="hidden" name="codPro" value="<?php echo $registro['codPro']; ?>">
                                             <button type="submit" name="edit" class="btn btn-outline-primary">
@@ -285,7 +285,6 @@ if (isset($_POST['edit'])) {
                 </tbody>
             </table>
         </div>
-        <img src="<?php echo ($registro['imagem']);?>">
     <?php endif; ?>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

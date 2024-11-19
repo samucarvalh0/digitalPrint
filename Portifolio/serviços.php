@@ -1,3 +1,24 @@
+<?php
+// Inclui o arquivo de conexão
+require_once "conexao.php";
+$conexao = novaConexao();
+
+try {
+    // Consulta para buscar os dados da tabela
+    $sql = "SELECT * FROM produtos";
+    $stmt = $conexao->prepare($sql);
+    $stmt->execute();
+    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Verifique se há resultados
+    if (!$resultados) {
+        echo "<p>Nenhum resultado encontrado.</p>";
+    }
+} catch (PDOException $e) {
+    echo "<p>Erro na conexão: " . $e->getMessage() . "</p>";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -8,7 +29,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="style.css?v=1.1">
+    <link rel="stylesheet" href="style.css?v=1.2">
     <link rel="icon" href="./img/Dzao.png">
 
     <!--Link da seta-->
@@ -77,49 +98,41 @@
     </main>
 
     <main>
-        <?php
-        // Inclui o arquivo de conexão
-        require_once "conexao.php";
-        $conexao = novaConexao();
+        <div class="container-fluid">
+            <div class="row justify-content-center text-center">
+                <?php
+                // Inicializa o contador
+                $contagem = 0;
 
-        try {
-            // Consulta para buscar os dados da tabela
-            $sql = "SELECT * FROM imagens";
-            $stmt = $conexao->prepare($sql);
-            $stmt->execute();
-            $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($resultados as $resultado) {
+                    // Recupera o valor do campo da imagem
+                    $imagem = !empty($resultado['imagem']) ? htmlspecialchars($resultado['imagem']) : 'img1/default.jpg';
 
-            // Verifique se há resultados
-            if (!$resultados) {
-                echo "<p>Nenhum resultado encontrado.</p>";
-            }
-
-            // Loop para exibir os resultados dentro dos cards
-            foreach ($resultados as $resultado) {
-                // Recupera o valor do campo que contém o caminho ou nome do arquivo de imagem
-                $imagem = htmlspecialchars($resultado['imagem']) ? $resultado['imagem'] : 'img1/default.jpg';
-
+                    // Inicia uma nova linha a cada 4 cards
+                    if ($contagem % 4 === 0 && $contagem > 0) {
+                        echo '</div><div class="row justify-content-center text-center">';
+                    }
                 ?>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <!-- Exibe a imagem do banco de dados -->
-                        <img src="<?php echo htmlspecialchars($imagem); ?>" class="card-img-top" alt="Imagem do Card">
-
-                        <div class="card-body">
-                            <h5 class="card-title">Nome: <?php echo htmlspecialchars($resultado['Nome']); ?></h5>
-                            <p class="card-text">Descrição: <?php echo htmlspecialchars($resultado['Descricao']); ?></p>
+                    <div class="col-3 mb-4 servicoImgs">
+                        <div class="card">
+                            <!-- Exibe a imagem do banco de dados -->
+                            <div class="card-header" style="background-image: url(../Sistema/produto/<?php echo $imagem; ?>)">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo htmlspecialchars($resultado['nomeCat'] . " " . $resultado['medida']); ?></h5>
+                                <p>Entre em contato e peça já!</p>
+                            </div>
                         </div>
                     </div>
-                </div>
                 <?php
-            }
-        } catch (PDOException $e) {
-            echo "<p>Erro na conexão: " . $e->getMessage() . "</p>";
-        }
+                    // Incrementa o contador
+                    $contagem++;
+                }
+                ?>
+            </div> <!-- Fecha a última row -->
+        </div>
 
-        // Fecha a conexão
-        $conexao = null;
-        ?>
+
     </main>
 
     <footer class="footer_principal">

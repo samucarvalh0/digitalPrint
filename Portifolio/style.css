@@ -860,11 +860,11 @@ header .navbar {
     margin-right: 30px;
 }
 
-.subtitle{
+.subtitle {
     text-align: justify;
 }
 
-.hero-image-2{
+.hero-image-2 {
     width: 90%;
 }
 
@@ -1010,4 +1010,42 @@ form button:hover {
     max-width: 100%;
     border-radius: 10px;
     margin-left: 730px;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+/* TELA DE SERVIÇOS */
+
+.servicoImgs {
+    display: flex;
+    justify-content: center;
+}
+
+.servicoImgs .card {
+    box-shadow: 0.5px 10px 15px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+.servicoImgs .card-header {
+    height: 300px;
+    border: none;
+}
+
+.servicoImgs .card-header {
+    border: white solid 6px;
+    border-radius: 10px;
+    background-size: cover;
+    /* Faz a imagem preencher a área */
+    background-repeat: no-repeat;
+    /* Evita repetições da imagem */
+    background-position: center;
+    /* Centraliza a imagem */
+}
+
+.servicoImgs .card-body p{
+    font-size: 15px;
+}
+
+.servicoImgs .card-body h5{
+    font-weight: bold;
+    font-size: 24px;
 }
