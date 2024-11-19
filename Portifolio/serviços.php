@@ -116,7 +116,7 @@ try {
                     <div class="col-3 mb-4 servicoImgs">
                         <div class="card">
                             <!-- Exibe a imagem do banco de dados -->
-                            <div class="card-header" style="background-image: url(../Sistema/produto/<?php echo $imagem; ?>)">
+                            <div class="card-header" style="background-image: url(../Sistema/produto/<?php echo $imagem; ?>)" id="<?php echo htmlspecialchars($resultado['nomeCat']);?>">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo htmlspecialchars($resultado['nomeCat'] . " " . $resultado['medida']); ?></h5>
