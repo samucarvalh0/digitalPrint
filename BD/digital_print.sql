@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19/11/2024 às 02:15
+-- Tempo de geração: 20/11/2024 às 00:08
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -61,11 +61,7 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`codCat`, `nome`) VALUES
-(13, 'teste1'),
-(14, 'teste2'),
-(15, 'teste3'),
-(16, 'testeIMG'),
-(17, 'testeIMG2');
+(1, 'Banner');
 
 -- --------------------------------------------------------
 
@@ -190,10 +186,7 @@ CREATE TABLE `produtos` (
 --
 
 INSERT INTO `produtos` (`codPro`, `codCat`, `nomeCat`, `medida`, `valor`, `imagem`) VALUES
-(10, 13, 'teste1', '10x10', 3, ''),
-(11, 14, 'teste2', '20x20', 2, ''),
-(12, 15, 'teste3', '10x10', 2, ''),
-(22, 17, 'testeIMG2', '50x50', 2, 'img1/download20241119021028.jpg');
+(1, 1, 'Banner', '50x50', 35, 'img1/foto1.20241120000332jpeg');
 
 --
 -- Índices para tabelas despejadas
@@ -255,7 +248,7 @@ ALTER TABLE `agenda`
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `codCat` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `codCat` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `funcionarios`
@@ -285,7 +278,7 @@ ALTER TABLE `pedidos`
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `codPro` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `codPro` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
