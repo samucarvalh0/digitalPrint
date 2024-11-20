@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="style.css?v=1.3">
+    <link rel="stylesheet" href="style.css?v=1.10">
     <link rel="icon" href="./img/Dzao.png">
 
     <!--Link da seta-->
@@ -30,29 +30,35 @@
 <body>
 
     <header class="headline">
-        <nav class="navbar">
+        <nav class="navbar navbar-expand-md">
             <a href="#" class="nav-logo">
                 <h2 class="logo-text">Digital Print</h2>
             </a>
+            <!-- Menu Hamburguer -->
+            <button  id="menuButton" class="navbar-toggler" data-toggle="collapse" data-target="#navegacao">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="serviços.php" class="nav-link">Serviços</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#sobre" class="nav-link">Sobre</a>
-                </li>
-                <li class="nav-item">
-                    <a href="cad_cli.php" class="nav-link">Cadastro</a>
-                </li>
-                <li class="nav-item">
-                    <a href="ctt.php" class="nav-link">Contato</a>
-                </li>
-            </ul>
+            <!-- navegacao -->
+            <div class="collapse navbar-collapse justify-content-end" id="navegacao">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="serviços.php" class="nav-link">Serviços</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#sobre" class="nav-link">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ctt.php" class="nav-link">Contato</a>
+                    </li>
+                </ul>
+            </div>
+
         </nav>
+
     </header>
 
     <main>
@@ -62,7 +68,8 @@
                 <div class="hero-details">
                     <h2 class="title">Digital Print</h2>
                     <h3 class="subtitle">Transformamos suas ideias em arte! Design gráfico criativo para destacar a sua
-                        marca.</h3>
+                        marca.
+                    </h3>
                     <p class="description">Dê vida à sua marca com um design gráfico único e memorável!</p>
 
                     <div class="buttons">
@@ -71,9 +78,10 @@
                     </div>
                 </div>
                 <div class="hero-image-wrapper">
-                    <img src="img/Dzao.png" alt="Coffee" class="hero-image Principal d-none d-md-block" />
+                    <img src="img/Dzao.png" alt="Coffee" class="hero-image Principal" />
                 </div>
             </div>
+
             <!--Waves Container-->
             <div>
                 <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -94,11 +102,10 @@
         </section>
 
         <!--COLUNAS EXIB IMAGE-->
-
         <article class="columns">
             <section class="section-conteudo">
                 <div class="produtos">
-                    <div class="row justify-content-center text-center">
+                    <div class="row1 justify-content-center text-center">
                         <div class="col-12 cont">
                             <h1 class="display-5 cont" style="margin-top: 50px;">CONFIRA OS MAIS PEDIDOS!</h1>
                         </div>
@@ -127,51 +134,9 @@
                             <button class="btn btn-outline-primary p-2" mb-3 style="width:75%;">Ver Mais!</button>
                         </div>
                         <div class="col-xl-2 col-md-4 col-sm-12" id="colImg" style="border: none; background: none;">
-                            <img src="./img/Dzao.png" class=" cont img-fluid" alt="Imagem">
+                            <img src="./img/mockupBanner.png" class=" cont img-fluid" alt="Imagem">
                             <p class="cont-p mt-5" style="font-size: 21px;">
-                                D PERSONAL <br>
-                            </p>
-                            <button class="btn btn-outline-primary p-2 mb-3" style="width:75%;">Ver Mais!</button>
-                        </div>
-                        <div class="col-xl-2 col-md-4 col-sm-12" id="colImg" style="border: none; background: none;">
-                            <img src="./img/ad_mockup.png" class=" cont img-fluid" alt="Imagem">
-                            <p class="cont-p mt-5" style="font-size: 21px;">
-                                ADESIVO<br>
-                            </p>
-                            <button class="btn btn-outline-primary p-2 mb-3" style="width:75%;">Ver Mais!</button>
-                        </div>
-                        <div class="col-xl-2 col-md-4 col-sm-12" id="colImg" style="border: none; background: none;">
-                            <img src="./img/cartao_visita_mockup.png" class=" cont img-fluid" alt="Imagem">
-                            <p class="cont-p mt-5" style="font-size: 21px;">
-                                CARTÃO DE VISITAS <br>
-                            </p>
-                            <button class="btn btn-outline-primary p-2 mb-3" style="width:75%;">Ver Mais!</button>
-                        </div>
-                        <div class="col-xl-2 col-md-4 col-sm-12" id="colImg" style="border: none; background: none;">
-                            <img src="./img/panfleto_mockup.png" class=" cont img-fluid" alt="Imagem">
-                            <p class="cont-p mt-5" style="font-size: 21px;">
-                                PANFLETO <br>
-                            </p>
-                            <button class="btn btn-outline-primary p-2 mb-3" style="width:75%;">Ver Mais!</button>
-                        </div>
-                        <div class="col-xl-2 col-md-4 col-sm-12" id="colImg" style="border: none; background: none;">
-                            <img src="./img/panfleto_mockup.png" class=" cont img-fluid" alt="Imagem">
-                            <p class="cont-p mt-5" style="font-size: 21px;">
-                                PANFLETO <br>
-                            </p>
-                            <button class="btn btn-outline-primary p-2 mb-3" style="width:75%;">Ver Mais!</button>
-                        </div>
-                        <div class="col-xl-2 col-md-4 col-sm-12" id="colImg" style="border: none; background: none;">
-                            <img src="./img/panfleto_mockup.png" class=" cont img-fluid" alt="Imagem">
-                            <p class="cont-p mt-5" style="font-size: 21px;">
-                                PANFLETO <br>
-                            </p>
-                            <button class="btn btn-outline-primary p-2 mb-3" style="width:75%;">Ver Mais!</button>
-                        </div>
-                        <div class="col-xl-2 col-md-4 col-sm-12" id="colImg" style="border: none; background: none;">
-                            <img src="./img/Dzao.png" class=" cont img-fluid" alt="Imagem">
-                            <p class="cont-p mt-5" style="font-size: 21px;">
-                                D PERSONAL <br>
+                                BANNER <br>
                             </p>
                             <button class="btn btn-outline-primary p-2 mb-3" style="width:75%;">Ver Mais!</button>
                         </div>
@@ -201,154 +166,60 @@
 
             <!--Coluna Mini Galeria-->
 
-            <div class="container swiper">
+            <div class="container swiper headline">
                 <div class="card-wrapper">
-                    <ul class="card-list swiper-wrapper">
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link">
-                                <img src="img/foto1.jpeg" alt="Card Image" class="card-image">
-                                <p class="badge Banner">Banner</p>
-                                <h2 class="card-title">Conheça nosso trabalho com banner!</h2>
-                                <button class="card-button material-symbols-rounded">
-                                    arrow_forward
-                                </button>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link">
-                                <img src="img/foto2.jpeg" alt="Card Image" class="card-image">
-                                <p class="badge Placa">Placa</p>
-                                <h2 class="card-title">
-                                    Conheça nosso trabalho com placa!
-                                </h2>
-                                <button class="card-button material-symbols-rounded">
-                                    arrow_forward
-                                </button>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link">
-                                <img src="img/foto3.jpeg" alt="Card Image" class="card-image">
-                                <p class="badge Fachada">Fachada</p>
-                                <h2 class="card-title">
-                                    Conheça nosso trabalho com fachada!
-                                </h2>
-                                <button class="card-button material-symbols-rounded">
-                                    arrow_forward
-                                </button>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link">
-                                <img src="img/foto4.jpeg" alt="Card Image" class="card-image">
-                                <p class="badge Banner">Banner</p>
-                                <h2 class="card-title">
-                                    Conheça nosso trabalho com banner!
-                                </h2>
-                                <button class="card-button material-symbols-rounded">
-                                    arrow_forward
-                                </button>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link">
-                                <img src="img/foto5.jpeg" alt="Card Image" class="card-image">
-                                <p class="badge Wind-banner">Wind banner</p>
-                                <h2 class="card-title">
-                                    Conheça nosso trabalho com wind banner!
-                                </h2>
-                                <button class="card-button material-symbols-rounded">
-                                    arrow_forward
-                                </button>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link">
-                                <img src="img/foto6.jpeg" alt="Card Image" class="card-image">
-                                <p class="badge Adesivo">Adesivo</p>
-                                <h2 class="card-title">
-                                    Conheça nosso trabalho com adesivo!
-                                </h2>
-                                <button class="card-button material-symbols-rounded">
-                                    arrow_forward
-                                </button>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link">
-                                <img src="img/foto7.jpeg" alt="Card Image" class="card-image">
-                                <p class="badge cartao">Cartão</p>
-                                <h2 class="card-title">
-                                    Conheça nosso trabalho com cartão!
-                                </h2>
-                                <button class="card-button material-symbols-rounded">
-                                    arrow_forward
-                                </button>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link">
-                                <img src="img/foto8.jpeg" alt="Card Image" class="card-image">
-                                <p class="badge Placa">Placa</p>
-                                <h2 class="card-title">
-                                    Conheça nosso trabalho com placa!
-                                </h2>
-                                <button class="card-button material-symbols-rounded">
-                                    arrow_forward
-                                </button>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link">
-                                <img src="img/foto9.jpeg" alt="Card Image" class="card-image">
-                                <p class="badge Panfleto">Panfleto</p>
-                                <h2 class="card-title">
-                                    Conheça nosso trabalho com panfleto!
-                                </h2>
-                                <button class="card-button material-symbols-rounded">
-                                    arrow_forward
-                                </button>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link">
-                                <img src="img/foto10.jpeg" alt="Card Image" class="card-image">
-                                <p class="badge Wind-banner">Wind banner</p>
-                                <h2 class="card-title">
-                                    Conheça nosso trabalho com wind banner!
-                                </h2>
-                                <button class="card-button material-symbols-rounded">
-                                    arrow_forward
-                                </button>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link">
-                                <img src="img/foto11.jpeg" alt="Card Image" class="card-image">
-                                <p class="badge Banner">Banner</p>
-                                <h2 class="card-title">
-                                    Conheça nosso trabalho com banner!
-                                </h2>
-                                <button class="card-button material-symbols-rounded">
-                                    arrow_forward
-                                </button>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link">
-                                <img src="img/foto12.jpeg" alt="Card Image" class="card-image">
-                                <p class="badge Placa">Placa</p>
-                                <h2 class="card-title">
-                                    Conheça nosso trabalho com placa!
-                                </h2>
-                                <button class="card-button material-symbols-rounded">
-                                    arrow_forward
-                                </button>
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
+                    <div class="card-list">
+                        <a href="serviços.php" class="card-item">
+                            <img src="./img/img1.jpg" alt="Card Image">
+                            <span class="developer">Adesivos</span>
+                            <h3>Conheça nossos adesivos.</h3>
+                            <div class="arrow">
+                                <i class="fas fa-arrow-right card-icon"></i>
+                            </div>
+                        </a>
+                        <a href="serviços.php" class="card-item">
+                            <img src="./img/img2.jpg" alt="Card Image">
+                            <span class="designer">Tapetes</span>
+                            <h3>Conheça nossos adesivos para tapetes.</h3>
+                            <div class="arrow">
+                                <i class="fas fa-arrow-right card-icon"></i>
+                            </div>
+                        </a>
+                        <a href="serviços.php" class="card-item">
+                            <img src="./img/img3.jpg" alt="Card Image">
+                            <span class="editor">Panfletos</span>
+                            <h3>Conheça nossos panfletos.</h3>
+                            <div class="arrow">
+                                <i class="fas fa-arrow-right card-icon"></i>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="card-list">
+                        <a href="serviços.php" class="card-item">
+                            <img src="./img/img4.jpg" alt="Card Image">
+                            <span class="developer">Cartão</span>
+                            <h3>Conheça nossos cartões de visita.</h3>
+                            <div class="arrow">
+                                <i class="fas fa-arrow-right card-icon"></i>
+                            </div>
+                        </a>
+                        <a href="serviços.php" class="card-item">
+                            <img src="./img/foto3.jpeg" alt="Card Image">
+                            <span class="designer">Banner</span>
+                            <h3>Conheça nosso trabalho com banner.</h3>
+                            <div class="arrow">
+                                <i class="fas fa-arrow-right card-icon"></i>
+                            </div>
+                        </a>
+                        <a href="serviços.php" class="card-item">
+                            <img src="./img/foto10.jpeg" alt="Card Image">
+                            <span class="editor">Fachadas</span>
+                            <h3>Conheça nosso trabalho com fachadas.</h3>
+                            <div class="arrow">
+                                <i class="fas fa-arrow-right card-icon"></i>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -372,7 +243,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <img src="img/title1.png" class="img_conteudo d-none d-md-block">
+                                    <img src="img/title1.png" class="img_conteudo">
                                 </div>
                             </div>
                         </div>
@@ -382,11 +253,11 @@
                 <div class="Home">
                     <article class="caixa">
                         <div class="container">
-                            <div class="row">
+                            <div class="row conteudos_cel">
                                 <div class="col-md-6">
                                     <div class="card-image tilt"
                                         style="transform: perspective(4000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);">
-                                        <img src="img/title2.png" class="img_conteudo d-none d-md-block">
+                                        <img src="img/title2.png" class="img_conteudo">
                                     </div>
                                 </div>
                                 <div class="col-md-6 d-flex">
@@ -474,7 +345,7 @@
                         d-none: imagem não aparece 
                         d-md-block: exibe imagem a partir da tela
                         -->
-                        <img src="img/Dzao.png" alt="Coffee" class="Principal sobre-img d-none d-md-block" />
+                        <img src="img/sobre.png" alt="Coffee" class="Principal sobre-img d-none d-md-block" />
                     </div>
                     <section class="mapa">
                         <br>
@@ -523,7 +394,7 @@
             <div id="footer_content">
                 <div id="footer_contacts">
                     <h1><a href="#"><img src="img/Dzao.png" height="80px"></a></h1>
-                    <p>It's all about your dreams</p>
+                    <p>É tudo sobre seus sonhos</p>
                 </div>
 
                 <ul class="footer-list">
@@ -576,7 +447,7 @@
 
             <div id="footer_copyright">
                 &#169
-                2024 all rights reservet
+                2024 Todos os direitos reservados
             </div>
         </footer>
 
@@ -595,7 +466,6 @@
 
         <!--Link SwipperJS script-->
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
         <script src="scripts2.js"></script>
     </main>
 

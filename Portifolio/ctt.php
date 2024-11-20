@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="style.css?v=1.3">
+    <link rel="stylesheet" href="style.css?v=1.6">
     <link rel="icon" href="./img/Dzao.png">
 
     <!--Link da seta-->
@@ -29,52 +29,78 @@
 
 <body>
 
-    <header class="headline">
-        <nav class="navbar">
+<header class="headline">
+        <nav class="navbar navbar-expand-md">
             <a href="index.php" class="nav-logo">
                 <h2 class="logo-text">Digital Print</h2>
             </a>
+            <!-- Menu Hamburguer -->
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navegacao">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="index.php" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="serviços.php" class="nav-link">Serviços</a>
-                </li>
-                <li class="nav-item">
-                    <a href="index.php#sobre" class="nav-link">Sobre</a>
-                </li>
-                <li class="nav-item">
-                    <a href="ctt.php" class="nav-link">Contato</a>
-                </li>
-            </ul>
+            <!-- navegacao -->
+            <div class="collapse navbar-collapse justify-content-end" id="navegacao">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.php" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="serviços.php" class="nav-link">Serviços</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#sobre" class="nav-link">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ctt.php" class="nav-link">Contato</a>
+                    </li>
+                </ul>
+            </div>
+
         </nav>
+
     </header>
 
     <!-- Hero section -->
     <section class="hero-section">
-        <section class="ctt efeito-hero-topo">
-            <h2 class="hctt">Contato</h2>
-            <form action="https://api.staticforms.xyz/submit" method="post">
-                <label>Nome</label>
-                <input type="text" name="name" placeholder="Digite seu nome" autocomplete="off" required>
-                <label>Email</label>
-                <input type="email" name="email" placeholder="Digite seu email" autocomplete="off" required>
-                <label>Mensagem</label>
-                <textarea name="message" cols="30" rows="10" placeholder="Digite sua mensagem" required></textarea>
-                <button type="submit">Enviar</button>
+        <div class="row">
+            <section class="ctt efeito-hero-topo">
+                <div class="container-ctt col-xl-12">
+                    <form>
+                        <h1>Contato</h1>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <input type="text" id="firstName" placeholder="Nome" required />
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <input type="text" id="lastName" placeholder="Ultimo Nome" required />
+                            </div>
+                        </div>
 
-                <input type="hidden" name="accessKey" value="042be0d3-84fa-4ae8-aaed-2434cda72cac">
-            </form>
-        </section>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <input type="email" id="email" placeholder="Email" required />
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <input type="text" id="phone" placeholder="Telefone" required />
+                            </div>
+                        </div>
+
+                        <h4>Envie sua mensagem...</h4>
+                        <textarea required></textarea>
+                        <input type="submit" value="Enviar" id="button" />
+
+                    </form>
+                </div>
+            </section>
+        </div>
     </section>
 
     <footer class="footer_principal">
         <div id="footer_content">
             <div id="footer_contacts">
-                <h1><a href="#"><img src="img/Dzao.png" height="80px"></a></h1>
-                <p>It's all about your dreams</p>
+                <h1><a href="index.php"><img src="img/Dzao.png" height="80px"></a></h1>
+                <p>É tudo sobre seus sonhos</p>
             </div>
 
             <ul class="footer-list">
@@ -127,9 +153,19 @@
 
         <div id="footer_copyright">
             &#169
-            2024 all rights reservet
+            2024 Todos os direitos reservados
         </div>
     </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+        <script src="js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

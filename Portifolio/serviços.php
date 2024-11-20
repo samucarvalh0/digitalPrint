@@ -68,36 +68,45 @@ try {
 <body>
 
     <header class="headline">
-        <nav class="navbar">
+        <nav class="navbar navbar-expand-md">
             <a href="index.php" class="nav-logo">
                 <h2 class="logo-text">Digital Print</h2>
             </a>
+            <!-- Menu Hamburguer -->
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navegacao">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="index.php" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="serviços.php" class="nav-link">Serviços</a>
-                </li>
-                <li class="nav-item">
-                    <a href="index.php#sobre" class="nav-link">Sobre</a>
-                </li>
-                <li class="nav-item">
-                    <a href="ctt.php" class="nav-link">Contato</a>
-                </li>
-            </ul>
+            <!-- navegacao -->
+            <div class="collapse navbar-collapse justify-content-end" id="navegacao">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.php" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="serviços.php" class="nav-link">Serviços</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#sobre" class="nav-link">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ctt.php" class="nav-link">Contato</a>
+                    </li>
+                </ul>
+            </div>
+
         </nav>
+
     </header>
 
     <main>
         <!-- Hero section -->
-        <section class="hero-section" style="margin-bottom: 5%">
+        <section class="hero-section">
             <div class="section-content efeito-hero-topo">
                 <div class="hero-details">
                     <h2 class="title">Digital Print</h2>
                     <h3 class="subtitle">
-                        Arte digital que transcende a imaginação e dá vida às suas ideias!
+                        Arte digital que transcende a imaginação!
                     </h3>
                     <p class="description">Transforme pixels em emoções com a nossa arte digital única!</p>
 
@@ -107,7 +116,7 @@ try {
                     </div>
                 </div>
                 <div class="hero-image-wrapper">
-                    <img src="img/inovadorV2.png" class="hero-image-2 Principal d-none d-md-block" />
+                    <img src="img/inovadorV2.png" class="hero-image-2 Principal" />
                 </div>
             </div>
             <!--Waves Container-->
@@ -130,7 +139,7 @@ try {
         </section>
     </main>
 
-    <main id="servicos" class="mb-5">
+    <main class="mb-5">
         <div class="container-fluid mb-4">
             <div class="row justify-content-center text-center">
                 <div class="dropdown">
@@ -143,15 +152,15 @@ try {
                             <?php foreach ($filtraCat as $registro): ?>
                                 <li>
                                     <!-- Botão de envio que envia o cod_func como valor -->
-                                    <button type="submit" class="dropdown-item btnFiltro" name="filtraCat" value="<?php echo htmlspecialchars($registro['nomeCat']); ?>">
+                                    <button type="submit" class="dropdown-item btnFiltro" name="filtraCat"
+                                        value="<?php echo htmlspecialchars($registro['nomeCat']); ?>">
                                         <?php echo htmlspecialchars($registro['nomeCat']); ?>
                                     </button>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
 
-                        <button type="submit" class="btn btn-outline-danger" name="limpar"
-                            value="pendente">limpar
+                        <button type="submit" class="btn btn-outline-danger" name="limpar" value="pendente">limpar
                         </button>
                     </form>
                 </div>
@@ -171,8 +180,8 @@ try {
                     if ($contagem % 4 === 0 && $contagem > 0) {
                         echo '</div><div class="row justify-content-center text-center">';
                     }
-                ?>
-                    <div class="col-3 mb-4 servicoImgs">
+                    ?>
+                    <div class="mb-4 servicoImgs col-sm-12 col-xl-3">
                         <div class="card">
                             <!-- Exibe a imagem do banco de dados -->
                             <div class="card-header"
@@ -181,12 +190,13 @@ try {
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">
-                                    <?php echo htmlspecialchars($resultado['nomeCat'] . " " . $resultado['medida']); ?></h5>
+                                    <?php echo htmlspecialchars($resultado['nomeCat'] . " " . $resultado['medida']); ?>
+                                </h5>
                                 <p>Entre em contato e peça já!</p>
                             </div>
                         </div>
                     </div>
-                <?php
+                    <?php
                     // Incrementa o contador
                     $contagem++;
                 }
@@ -200,8 +210,8 @@ try {
     <footer class="footer_principal">
         <div id="footer_content">
             <div id="footer_contacts">
-                <h1><a href="#"><img src="img/Dzao.png" height="80px"></a></h1>
-                <p>It's all about your dreams</p>
+                <h1><a href="index.php"><img src="img/Dzao.png" height="80px"></a></h1>
+                <p>É tudo sobre seus sonhos</p>
             </div>
 
             <ul class="footer-list">
@@ -254,13 +264,22 @@ try {
 
         <div id="footer_copyright">
             &#169
-            2024 all rights reservet
+            2024 Todos os direitos reservados
         </div>
     </footer>
 
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>
