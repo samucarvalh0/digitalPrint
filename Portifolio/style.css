@@ -1116,3 +1116,7 @@ form button:hover {
     font-weight: bold;
     font-size: 24px;
 }
+
+#servicos .dropdown .dropdown-toggle{
+    transition: none;
+}

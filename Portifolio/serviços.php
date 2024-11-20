@@ -10,9 +10,26 @@ try {
     $stmt->execute();
     $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    $sql_filtraCat = "SELECT nomeCat FROM produtos";
+    $stmt = $conexao->prepare($sql_filtraCat);
+    $stmt->execute();
+    $filtraCat = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     // Verifique se há resultados
     if (!$resultados) {
         echo "<p>Nenhum resultado encontrado.</p>";
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['filtraCat'])) {
+        $id = $_POST['filtraCat']; // Captura o valor do botão de filtro
+
+        // A consulta SQL agora utiliza um parâmetro para evitar injeção SQL
+        $sql = "SELECT * FROM produtos WHERE nomeCat = :id";
+        $stmt = $conexao->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_STR); // Binding do parâmetro
+        $stmt->execute(); // Executa a consulta
+
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC); // Recupera todos os registros
     }
 } catch (PDOException $e) {
     echo "<p>Erro na conexão: " . $e->getMessage() . "</p>";
@@ -75,7 +92,7 @@ try {
 
     <main>
         <!-- Hero section -->
-        <section class="hero-section">
+        <section class="hero-section" style="margin-bottom: 5%">
             <div class="section-content efeito-hero-topo">
                 <div class="hero-details">
                     <h2 class="title">Digital Print</h2>
@@ -113,7 +130,33 @@ try {
         </section>
     </main>
 
-    <main>
+    <main id="servicos" class="mb-5">
+        <div class="container-fluid mb-4">
+            <div class="row justify-content-center text-center">
+                <div class="dropdown">
+                    <form method="POST">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Filtrar
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <?php foreach ($filtraCat as $registro): ?>
+                                <li>
+                                    <!-- Botão de envio que envia o cod_func como valor -->
+                                    <button type="submit" class="dropdown-item btnFiltro" name="filtraCat" value="<?php echo htmlspecialchars($registro['nomeCat']); ?>">
+                                        <?php echo htmlspecialchars($registro['nomeCat']); ?>
+                                    </button>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+
+                        <button type="submit" class="btn btn-outline-danger" name="limpar"
+                            value="pendente">limpar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="container-fluid">
             <div class="row justify-content-center text-center">
                 <?php
@@ -128,7 +171,7 @@ try {
                     if ($contagem % 4 === 0 && $contagem > 0) {
                         echo '</div><div class="row justify-content-center text-center">';
                     }
-                    ?>
+                ?>
                     <div class="col-3 mb-4 servicoImgs">
                         <div class="card">
                             <!-- Exibe a imagem do banco de dados -->
@@ -143,7 +186,7 @@ try {
                             </div>
                         </div>
                     </div>
-                    <?php
+                <?php
                     // Incrementa o contador
                     $contagem++;
                 }
@@ -214,6 +257,10 @@ try {
             2024 all rights reservet
         </div>
     </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>
