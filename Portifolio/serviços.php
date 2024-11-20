@@ -93,7 +93,23 @@ try {
                     <img src="img/inovadorV2.png" class="hero-image-2 Principal d-none d-md-block" />
                 </div>
             </div>
-            <img src="./img/bagulhola.png" style="width: 100%;" class="ondas">
+            <!--Waves Container-->
+            <div>
+                <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                    <defs>
+                        <path id="gentle-wave"
+                            d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                    </defs>
+                    <g class="parallax">
+                        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+                        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+                        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+                        <use xlink:href="#gentle-wave" x="48" y="7" fill="rgb(249, 249, 249)" />
+                    </g>
+                </svg>
+            </div>
+            <!--Waves end-->
         </section>
     </main>
 
@@ -112,19 +128,22 @@ try {
                     if ($contagem % 4 === 0 && $contagem > 0) {
                         echo '</div><div class="row justify-content-center text-center">';
                     }
-                ?>
+                    ?>
                     <div class="col-3 mb-4 servicoImgs">
                         <div class="card">
                             <!-- Exibe a imagem do banco de dados -->
-                            <div class="card-header" style="background-image: url(../Sistema/produto/<?php echo $imagem; ?>)" id="<?php echo htmlspecialchars($resultado['nomeCat']);?>">
+                            <div class="card-header"
+                                style="background-image: url(../Sistema/produto/<?php echo $imagem; ?>)"
+                                id="<?php echo htmlspecialchars($resultado['nomeCat']); ?>">
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title"><?php echo htmlspecialchars($resultado['nomeCat'] . " " . $resultado['medida']); ?></h5>
+                                <h5 class="card-title">
+                                    <?php echo htmlspecialchars($resultado['nomeCat'] . " " . $resultado['medida']); ?></h5>
                                 <p>Entre em contato e peça já!</p>
                             </div>
                         </div>
                     </div>
-                <?php
+                    <?php
                     // Incrementa o contador
                     $contagem++;
                 }
