@@ -1,9 +1,14 @@
-<?php 
+<?php
 require_once "conexao.php";
 $conexao = novaConexao();
 
 session_start();
 
+if (isset($_POST['filtra'])) {
+    $_SESSION['filtro'] = [$_POST['filtra']];
+
+    header('location: serviços.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -128,6 +133,7 @@ session_start();
         </section>
 
         <!--COLUNAS EXIB IMAGE-->
+        <!--
         <article class="columns">
             <section class="section-conteudo">
                 <div class="produtos">
@@ -169,30 +175,30 @@ session_start();
                     </div>
                 </div>
             </section>
+-->
 
-            <!--Coluna Mini Galeria-->
+        <!--Coluna Mini Galeria-->
 
-            <hr class="linha">
+        <!-- <hr class="linha"> -->
 
-            <article class="columns">
-                <div class="row justify-content-center text-center">
-                    <div class="col-12 cont">
-                        <h1 class="display-5 cont" style="margin-top: 65px; margin-bottom: 65px;">VEJA NOSSO
-                            TRABALHO!
-                        </h1>
-                    </div>
+        <article class="columns">
+            <div class="row justify-content-center text-center">
+                <div class="col-12 cont">
+                    <h1 class="display-5 cont" style="margin-top: 65px; margin-bottom: 65px;">CONHEÇA NOSSOS SERVIÇOS
+                    </h1>
                 </div>
-            </article>
+            </div>
+        </article>
 
-            <!--Fim desse conteudo-->
+        <!--Fim desse conteudo-->
 
-            <!--Coluna Mini Galeria-->
+        <!--Coluna Mini Galeria-->
 
-            <div class="container swiper headline">
-            <div class="card-wrapper">
+        <div class="container swiper headline">
+            <form method="POST">
+                <div class="card-wrapper">
                     <div class="card-list">
-                        <input type="hidden" name="produtoFiltro" value="adesivo">
-                        <button type="submit" name="filtra" class="card-item">
+                        <button type="submit" name="filtra" class="card-item" value="adesivo">
                             <img src="./img/img1.jpg" alt="Card Image">
                             <span class="developer">Adesivos</span>
                             <h3>Conheça nossos adesivos.</h3>
@@ -200,8 +206,7 @@ session_start();
                                 <i class="fas fa-arrow-right card-icon"></i>
                             </div>
                         </button>
-                        <input type="hidden" name="produtoFiltro" value="tapete">
-                        <button type="submit" name="filtra" class="card-item">
+                        <button type="submit" name="filtra" class="card-item" value="tapete">
                             <img src="./img/img2.jpg" alt="Card Image">
                             <span class="designer">Tapetes</span>
                             <h3>Conheça nossos adesivos para tapetes.</h3>
@@ -209,8 +214,7 @@ session_start();
                                 <i class="fas fa-arrow-right card-icon"></i>
                             </div>
                         </button>
-                        <input type="hidden" name="produtoFiltro" value="panfleto">
-                        <button type="submit" name="filtra" class="card-item">
+                        <button type="submit" name="filtra" class="card-item" value="panfleto">
                             <img src="./img/img3.jpg" alt="Card Image">
                             <span class="editor">Panfletos</span>
                             <h3>Conheça nossos panfletos.</h3>
@@ -220,27 +224,24 @@ session_start();
                         </button>
                     </div>
                     <div class="card-list">
-                    <input type="hidden" name="produtoFiltro" value="cartao">
-                        <button type="submit" name="filtra" class="card-item">
-                            <img src="./img/img4.jpg" alt="Card Image">
+                        <button type="submit" name="filtra" class="card-item" value="cartao">
+                            <img src="./img/img4.png" alt="Card Image">
                             <span class="developer">Cartão</span>
                             <h3>Conheça nossos cartões de visita.</h3>
                             <div class="arrow">
                                 <i class="fas fa-arrow-right card-icon"></i>
                             </div>
                         </button>
-                        <input type="hidden" name="produtoFiltro" value="banner">
-                        <button type="submit" name="filtra" class="card-item">
-                            <img src="./img/foto3.jpeg" alt="Card Image">
+                        <button type="submit" name="filtra" class="card-item" value="Banner">
+                            <img src="./img/banner4.jpg" alt="Card Image">
                             <span class="designer">Banner</span>
                             <h3>Conheça nosso trabalho com banner.</h3>
                             <div class="arrow">
                                 <i class="fas fa-arrow-right card-icon"></i>
                             </div>
                         </button>
-                        <input type="hidden" name="produtoFiltro" value="fachada">
-                        <button type="submit" name="filtra" class="card-item">
-                            <img src="./img/foto10.jpeg" alt="Card Image">
+                        <button type="submit" name="filtra" class="card-item" value="fachada">
+                            <img src="./img/fachada.png" alt="Card Image">
                             <span class="editor">Fachadas</span>
                             <h3>Conheça nosso trabalho com fachadas.</h3>
                             <div class="arrow">
@@ -248,95 +249,102 @@ session_start();
                             </div>
                         </button>
                     </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto mt-5">
+                            <a href="serviços.php" class="btn btn-outline-primary" style="font-size: 28px">Ver Mais</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form>
+        </div>
 
-            <!--Coluna das Imagens e Textos-->
+        <hr class="linha mt-5">
 
-            <section>
-                <div class="Home">
-                    <article class="caixa">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-6 d-flex">
-                                    <div class="align-self-center">
-                                        <h2 class="titulo_conteudo">Resultados Poderosos</h2>
-                                        <p class="text_conteudo">
-                                            Maximize a visibilidade da sua marca com produtos de impressão que refletem
-                                            profissionalismo e estilo. Banners promocionais, folhetos personalizados e
-                                            cartões de visita: tudo o que você precisa para deixar sua marca na mente
-                                            dos
-                                            clientes!
-                                        </p>
-                                    </div>
+        <!--Coluna das Imagens e Textos-->
+
+        <section>
+            <div class="Home">
+                <article class="caixa">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 d-flex">
+                                <div class="align-self-center">
+                                    <h2 class="titulo_conteudo">Resultados Poderosos</h2>
+                                    <p class="text_conteudo">
+                                        Maximize a visibilidade da sua marca com produtos de impressão que refletem
+                                        profissionalismo e estilo. Banners promocionais, folhetos personalizados e
+                                        cartões de visita: tudo o que você precisa para deixar sua marca na mente
+                                        dos
+                                        clientes!
+                                    </p>
                                 </div>
-                                <div class="col-md-6">
-                                    <img src="img/title1.png" class="img_conteudo">
-                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <img src="img/title1.png" class="img_conteudo">
                             </div>
                         </div>
-                    </article>
-                </div>
-
-                <div class="Home">
-                    <article class="caixa">
-                        <div class="container">
-                            <div class="row conteudos_cel">
-                                <div class="col-md-6">
-                                    <div class="card-image tilt"
-                                        style="transform: perspective(4000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);">
-                                        <img src="img/title2.png" class="img_conteudo">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 d-flex">
-                                    <div class="align-self-center">
-                                        <h2 class="titulo_conteudo">Sua Fachada, Sua Identidade</h2>
-                                        <p class="text_conteudo">
-                                            A fachada do seu negócio é uma extensão da sua identidade. Com a
-                                            DigitalPrint,
-                                            você transforma essa área em um ponto de impacto, transmitindo
-                                            profissionalismo
-                                            e atraindo clientes com uma comunicação visual irresistível e personalizada.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-                <!-- ESPAÇO PARA O CARROSSEL -->
-                <article class="carrossel">
-                    <div id="carouselExampleIndicators" class="carousel slide d-none d-md-block"
-                        data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <div class="col-12 banner-1 align-self-center text-center">
-                                    <img class="mx-auto d-block" src="./img/banner_carrossel_1.png" alt="First Slide">
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img class="mx-auto d-block" src="./img/banner_carrossel_2.png" alt="Second Slide">
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only"></span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only"></span>
-                        </a>
                     </div>
                 </article>
-                <!--ESPAÇO PARA O CARROSSEL-->
+            </div>
 
-                <!--Cartão e Localização-->
+            <div class="Home">
+                <article class="caixa">
+                    <div class="container">
+                        <div class="row conteudos_cel">
+                            <div class="col-md-6">
+                                <div class="card-image tilt"
+                                    style="transform: perspective(4000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);">
+                                    <img src="img/title2.png" class="img_conteudo">
+                                </div>
+                            </div>
+                            <div class="col-md-6 d-flex">
+                                <div class="align-self-center">
+                                    <h2 class="titulo_conteudo">Sua Fachada, Sua Identidade</h2>
+                                    <p class="text_conteudo">
+                                        A fachada do seu negócio é uma extensão da sua identidade. Com a
+                                        DigitalPrint,
+                                        você transforma essa área em um ponto de impacto, transmitindo
+                                        profissionalismo
+                                        e atraindo clientes com uma comunicação visual irresistível e personalizada.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
 
-            </section>
-        </article>
+            <!-- ESPAÇO PARA O CARROSSEL -->
+            <article class="carrossel">
+                <div id="carouselExampleIndicators" class="carousel slide d-none d-md-block"
+                    data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="col-12 banner-1 align-self-center text-center">
+                                <img class="mx-auto d-block" src="./img/banner_carrossel_1.png" alt="First Slide">
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img class="mx-auto d-block" src="./img/banner_carrossel_2.png" alt="Second Slide">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only"></span>
+                    </a>
+                </div>
+            </article>
+            <!--ESPAÇO PARA O CARROSSEL-->
+
+            <!--Cartão e Localização-->
+
+        </section>
 
         <!--Fim desse conteudo-->
 
@@ -384,11 +392,8 @@ session_start();
                     </section>
                 </div>
             </div>
-            <hr class="linha">
         </article>
 
-
-        </div>
         <!--Fim desse conteudo-->
 
         <section class="art-section">
@@ -418,84 +423,72 @@ session_start();
             </div>
             <!--Waves end-->
         </section>
-        <footer class="footer_principal">
-            <div id="footer_content">
-                <div id="footer_contacts">
-                    <h1><a href="#"><img src="img/Dzao.png" height="80px"></a></h1>
-                    <p>É tudo sobre seus sonhos</p>
-                </div>
-
-                <ul class="footer-list">
-                    <li>
-                        <h3>Blog</h3>
-                    </li>
-                    <li>
-                        <a href="#" class="footer-link">Tech</a>
-                    </li>
-                    <li>
-                        <a href="#" class="footer-link">Adventures</a>
-                    </li>
-                    <li>
-                        <a href="#" class="footer-link">Music</a>
-                    </li>
-                </ul>
-
-                <ul class="footer-list">
-                    <li>
-                        <h3>Blog</h3>
-                    </li>
-                    <li>
-                        <a href="#" class="footer-link">App</a>
-                    </li>
-                    <li>
-                        <a href="#" class="footer-link">Desktop</a>
-                    </li>
-                    <li>
-                        <a href="#" class="footer-link">Cloud</a>
-                    </li>
-                </ul>
-
-                <div id="footer_contacts">
-                    <h3>Contatos</h3>
-                    <div id="footer_social_media">
-                        <a href="https://www.instagram.com/digitalprintcpv?igsh=MW11azY2OTl6bXBvdw==" target="_blank"
-                            class="footer_link" id="instagram">
-                            <i class="fa-brands fa-instagram"></i>
-                        </a>
-                        <a href="https://wa.me/5512991671420?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20um%20pedido."
-                            class="footer_link" target="_blank" id="whatsapp">
-                            <i class="fa-brands fa-whatsapp"></i>
-                        </a>
-                        <a href="mailto:digitalprint2130@gmail.com" class="footer_link" target="_blank" id="gmail">
-                            <i class="fa-solid fa-envelope"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div id="footer_copyright">
-                &#169
-                2024 Todos os direitos reservados
-            </div>
-        </footer>
-
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
-        <script src="js/bootstrap.min.js"></script>
-
-        <!--Link SwipperJS script-->
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-        <script src="scripts2.js"></script>
     </main>
+    <footer class="footer_principal">
+        <div id="footer_content">
+            <div id="footer_contacts">
+                <h1><a href="#"><img src="img/Dzao.png" height="80px"></a></h1>
+                <p>É tudo sobre seus sonhos</p>
+            </div>
+
+            <ul class="footer-list">
+                <li>
+                    <h3>Normas e Termos</h3>
+                </li>
+                <li>
+                    <a href="normas.php" class="footer-link">Normas de Segurança e Privacidade</a>
+                </li>
+                <li>
+                    <a href="termos.php" class="footer-link">Termos e Condições Gerais de Uso</a>
+                </li>
+                <li>
+                    <a href="msv.php" class="footer-link">Missão, Visão e Valores</a>
+                </li>
+            </ul>
+
+            <ul class="footer-list">
+            </ul>
+
+            <div id="footer_contacts">
+                <h3>Contatos</h3>
+                <div id="footer_social_media">
+                    <a href="https://www.instagram.com/digitalprintcpv?igsh=MW11azY2OTl6bXBvdw==" target="_blank"
+                        class="footer_link" id="instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/5512991671420?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20um%20pedido."
+                        class="footer_link" target="_blank" id="whatsapp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <a href="mailto:digitalprint2130@gmail.com" class="footer_link" target="_blank" id="gmail">
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer_copyright">
+            &#169
+            2024 Todos os direitos reservados
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <!--Link SwipperJS script-->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="scripts2.js"></script>
 
 </body>
 

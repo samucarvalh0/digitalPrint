@@ -24,7 +24,7 @@ try {
 
     if ($_SESSION['filtro']) {
 
-        $id = $_SESSION['filtro']; // Captura o valor da sessão de filtro
+        $id = $_SESSION['filtro'][0]; // Captura o valor da sessão de filtro
 
         // A consulta SQL agora utiliza um parâmetro para evitar injeção SQL
         $sql = "SELECT * FROM produtos WHERE nomeCat = :id";
@@ -244,38 +244,26 @@ try {
     <footer class="footer_principal">
         <div id="footer_content">
             <div id="footer_contacts">
-                <h1><a href="index.php"><img src="img/Dzao.png" height="80px"></a></h1>
+                <h1><a href="#"><img src="img/Dzao.png" height="80px"></a></h1>
                 <p>É tudo sobre seus sonhos</p>
             </div>
 
             <ul class="footer-list">
                 <li>
-                    <h3>Blog</h3>
+                    <h3>Normas e Termos</h3>
                 </li>
                 <li>
-                    <a href="#" class="footer-link">Tech</a>
+                    <a href="normas.php" class="footer-link">Normas de Segurança e Privacidade</a>
                 </li>
                 <li>
-                    <a href="#" class="footer-link">Adventures</a>
+                    <a href="termos.php" class="footer-link">Termos e Condições Gerais de Uso</a>
                 </li>
                 <li>
-                    <a href="#" class="footer-link">Music</a>
+                    <a href="msv.php" class="footer-link">Missão, Visão e Valores</a>
                 </li>
             </ul>
 
             <ul class="footer-list">
-                <li>
-                    <h3>Blog</h3>
-                </li>
-                <li>
-                    <a href="#" class="footer-link">App</a>
-                </li>
-                <li>
-                    <a href="#" class="footer-link">Desktop</a>
-                </li>
-                <li>
-                    <a href="#" class="footer-link">Cloud</a>
-                </li>
             </ul>
 
             <div id="footer_contacts">

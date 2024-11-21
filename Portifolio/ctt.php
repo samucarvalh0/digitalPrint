@@ -1,3 +1,33 @@
+<?php
+if (isset($_POST['enviar'])) {
+    // Coletando os dados do formulário
+    $nome = $_POST['nome']; // Nome do remetente
+    $sobrenome = $_POST['sobrenome']; // Sobrenome do remetente
+    $email = $_POST['email']; // E-mail do remetente
+    $telefone = $_POST['tel']; // Telefone do remetente
+    $assunto = $_POST['assunto']; // Assunto da mensagem
+
+    // Destinatário
+    $para = "samuel.j.a.carvalho@gmail.com";
+
+    // Corpo da mensagem
+    $mensagem = "Nome: " . $nome . " " . $sobrenome . "\r\n";
+    $mensagem .= "Telefone: " . $telefone . "\r\n";
+    $mensagem .= "Mensagem: " . $assunto . "\r\n";
+
+    // Cabeçalhos
+    $cabecalhos = "From: " . $email . "\r\n" .
+        "X-Mailer: PHP/" . phpversion();
+
+    // Envio do e-mail
+    if (mail($para, "Mensagem do formulário de contato", $mensagem, $cabecalhos)) {
+        echo "E-mail enviado com sucesso!";
+    } else {
+        echo "Falha no envio do e-mail.";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -84,29 +114,29 @@
         <div class="row">
             <section class="ctt efeito-hero-topo">
                 <div class="container-ctt col-xl-12">
-                    <form>
+                    <form method="POST">
                         <h1>Contato</h1>
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
-                                <input type="text" id="firstName" placeholder="Nome" required />
+                                <input type="text" id="firstName" placeholder="Nome" name="nome" required />
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <input type="text" id="lastName" placeholder="Ultimo Nome" required />
+                                <input type="text" id="lastName" placeholder="Ultimo Nome" name="sobrenome" required />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
-                                <input type="email" id="email" placeholder="Email" required />
+                                <input type="email" id="email" placeholder="Email" name="email" required />
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <input type="text" id="phone" placeholder="Telefone" required />
+                                <input type="text" id="phone" placeholder="Telefone" name="tel" required />
                             </div>
                         </div>
 
                         <h4>Envie sua mensagem...</h4>
-                        <textarea required></textarea>
-                        <input type="submit" value="Enviar" id="button" />
+                        <textarea name="assunto" required></textarea>
+                        <button type="submit" name="enviar" id="button">Enviar</button>
 
                     </form>
                 </div>
@@ -117,38 +147,26 @@
     <footer class="footer_principal">
         <div id="footer_content">
             <div id="footer_contacts">
-                <h1><a href="index.php"><img src="img/Dzao.png" height="80px"></a></h1>
+                <h1><a href="#"><img src="img/Dzao.png" height="80px"></a></h1>
                 <p>É tudo sobre seus sonhos</p>
             </div>
 
             <ul class="footer-list">
                 <li>
-                    <h3>Blog</h3>
+                    <h3>Normas e Termos</h3>
                 </li>
                 <li>
-                    <a href="#" class="footer-link">Tech</a>
+                    <a href="normas.php" class="footer-link">Normas de Segurança e Privacidade</a>
                 </li>
                 <li>
-                    <a href="#" class="footer-link">Adventures</a>
+                    <a href="termos.php" class="footer-link">Termos e Condições Gerais de Uso</a>
                 </li>
                 <li>
-                    <a href="#" class="footer-link">Music</a>
+                    <a href="msv.php" class="footer-link">Missão, Visão e Valores</a>
                 </li>
             </ul>
 
             <ul class="footer-list">
-                <li>
-                    <h3>Blog</h3>
-                </li>
-                <li>
-                    <a href="#" class="footer-link">App</a>
-                </li>
-                <li>
-                    <a href="#" class="footer-link">Desktop</a>
-                </li>
-                <li>
-                    <a href="#" class="footer-link">Cloud</a>
-                </li>
             </ul>
 
             <div id="footer_contacts">

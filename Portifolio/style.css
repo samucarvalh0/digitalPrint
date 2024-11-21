@@ -103,12 +103,14 @@ nav ul {
 }
 
 .navbar-toggler {
-    border-color: white; /* Borda do botão */
-  }
+    border-color: white;
+    /* Borda do botão */
+}
 
-  .navbar-toggler-icon {
+.navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='%23ffffff' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-  }
+}
+
 .cor_fonte {
     color: black;
     font-weight: bold;
@@ -891,7 +893,7 @@ header .navbar {
     display: flex;
 }
 
-.navbar  .nav-link {
+.navbar .nav-link {
     padding: 10px 18px;
     color: white;
     font-size: var(--font-size-m);
@@ -1175,10 +1177,65 @@ header .navbar {
     }
 }
 
-.filtro li{
+.filtro li {
     font-size: 20px;
 }
 
-.filtro li:hover{
+.filtro li:hover {
     color: #442A87;
+}
+
+
+
+
+.custom-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    flex-wrap: wrap;
+    padding: 20px;
+    box-sizing: border-box;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease-in-out;
+    /* Transição suave */
+}
+
+.custom-card:hover {
+    transform: translateY(-10px);
+    /* Efeito de elevação ao passar o mouse */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    /* Sombra mais intensa no hover */
+}
+
+.custom-card .card-body {
+    color: white;
+    /* Cor do texto */
+}
+
+.custom-card .card-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.custom-card .card-text {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.msv {
+    margin-top: 15%;
+}
+
+@media (max-width: 767px) {
+    .msv {
+        margin-top: 35%;
+    }
 }
