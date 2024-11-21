@@ -33,4 +33,3 @@ new Swiper('.card-wrapper', {
     },
   }
 });
-

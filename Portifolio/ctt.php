@@ -29,36 +29,54 @@
 
 <body>
 
-<header class="headline">
-        <nav class="navbar navbar-expand-md">
-            <a href="index.php" class="nav-logo">
-                <h2 class="logo-text">Digital Print</h2>
-            </a>
-            <!-- Menu Hamburguer -->
-            <button class="navbar-toggler" data-toggle="collapse" data-target="#navegacao">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <header class="headline">
+        <div class="linha" style="border-bottom: white solid 1px;">
+            <nav class="navbar navbar-expand-md">
+                <a href="index.php" class="nav-logo">
+                    <h2 class="logo-text">Digital Print</h2>
+                </a>
 
-            <!-- navegacao -->
-            <div class="collapse navbar-collapse justify-content-end" id="navegacao">
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="index.php" class="nav-link">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="serviços.php" class="nav-link">Serviços</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#sobre" class="nav-link">Sobre</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="ctt.php" class="nav-link">Contato</a>
-                    </li>
-                </ul>
-            </div>
+                <!-- Menu Hamburguer -->
+                <button id="menuButton" class="navbar-toggler navbar-light" data-toggle="collapse" data-target="#navegacao" onclick="tiraLinha()">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-        </nav>
+                <!-- Navegação no menu hambúrguer -->
+                <div class="collapse navbar-collapse justify-content-end" id="navegacao">
+                    <ul class="nav-menu d-none d-md-flex ml-auto">
+                        <li class="nav-item">
+                            <a href="index.php" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="serviços.php" class="nav-link">Serviços</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="index.php#sobre" class="nav-link">Sobre</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="ctt.php" class="nav-link">Contato</a>
+                        </li>
+                    </ul>
 
+                    <div class="navBackOpacity">
+                        <ul class="nav-menu flex-column d-md-none">
+                            <li class="nav-item">
+                                <a href="index.php" class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="serviços.php" class="nav-link">Serviços</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="index.php#sobre" class="nav-link">Sobre</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="ctt.php" class="nav-link">Contato</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
     </header>
 
     <!-- Hero section -->
@@ -159,12 +177,12 @@
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
-        <script src="js/bootstrap.min.js"></script>
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"></script>
 
 </body>
 

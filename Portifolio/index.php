@@ -1,3 +1,11 @@
+<?php 
+require_once "conexao.php";
+$conexao = novaConexao();
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -30,35 +38,53 @@
 <body>
 
     <header class="headline">
-        <nav class="navbar navbar-expand-md">
-            <a href="#" class="nav-logo">
-                <h2 class="logo-text">Digital Print</h2>
-            </a>
-            <!-- Menu Hamburguer -->
-            <button  id="menuButton" class="navbar-toggler" data-toggle="collapse" data-target="#navegacao">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <div class="linha" style="border-bottom: white solid 1px;">
+            <nav class="navbar navbar-expand-md">
+                <a href="#" class="nav-logo">
+                    <h2 class="logo-text">Digital Print</h2>
+                </a>
 
-            <!-- navegacao -->
-            <div class="collapse navbar-collapse justify-content-end" id="navegacao">
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="serviços.php" class="nav-link">Serviços</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#sobre" class="nav-link">Sobre</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="ctt.php" class="nav-link">Contato</a>
-                    </li>
-                </ul>
-            </div>
+                <!-- Menu Hamburguer -->
+                <button id="menuButton" class="navbar-toggler navbar-light" data-toggle="collapse" data-target="#navegacao" onclick="tiraLinha()">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-        </nav>
+                <!-- Navegação no menu hambúrguer -->
+                <div class="collapse navbar-collapse justify-content-end" id="navegacao">
+                    <ul class="nav-menu d-none d-md-flex ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="serviços.php" class="nav-link">Serviços</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#sobre" class="nav-link">Sobre</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="ctt.php" class="nav-link">Contato</a>
+                        </li>
+                    </ul>
 
+                    <div class="navBackOpacity">
+                        <ul class="nav-menu flex-column d-md-none">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="serviços.php" class="nav-link">Serviços</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#sobre" class="nav-link">Sobre</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="ctt.php" class="nav-link">Contato</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
     </header>
 
     <main>
@@ -158,67 +184,69 @@
                 </div>
             </article>
 
-            <section class="slider_container">
-
-            </section>
-
             <!--Fim desse conteudo-->
 
             <!--Coluna Mini Galeria-->
 
             <div class="container swiper headline">
-                <div class="card-wrapper">
+            <div class="card-wrapper">
                     <div class="card-list">
-                        <a href="serviços.php" class="card-item">
+                        <input type="hidden" name="produtoFiltro" value="adesivo">
+                        <button type="submit" name="filtra" class="card-item">
                             <img src="./img/img1.jpg" alt="Card Image">
                             <span class="developer">Adesivos</span>
                             <h3>Conheça nossos adesivos.</h3>
                             <div class="arrow">
                                 <i class="fas fa-arrow-right card-icon"></i>
                             </div>
-                        </a>
-                        <a href="serviços.php" class="card-item">
+                        </button>
+                        <input type="hidden" name="produtoFiltro" value="tapete">
+                        <button type="submit" name="filtra" class="card-item">
                             <img src="./img/img2.jpg" alt="Card Image">
                             <span class="designer">Tapetes</span>
                             <h3>Conheça nossos adesivos para tapetes.</h3>
                             <div class="arrow">
                                 <i class="fas fa-arrow-right card-icon"></i>
                             </div>
-                        </a>
-                        <a href="serviços.php" class="card-item">
+                        </button>
+                        <input type="hidden" name="produtoFiltro" value="panfleto">
+                        <button type="submit" name="filtra" class="card-item">
                             <img src="./img/img3.jpg" alt="Card Image">
                             <span class="editor">Panfletos</span>
                             <h3>Conheça nossos panfletos.</h3>
                             <div class="arrow">
                                 <i class="fas fa-arrow-right card-icon"></i>
                             </div>
-                        </a>
+                        </button>
                     </div>
                     <div class="card-list">
-                        <a href="serviços.php" class="card-item">
+                    <input type="hidden" name="produtoFiltro" value="cartao">
+                        <button type="submit" name="filtra" class="card-item">
                             <img src="./img/img4.jpg" alt="Card Image">
                             <span class="developer">Cartão</span>
                             <h3>Conheça nossos cartões de visita.</h3>
                             <div class="arrow">
                                 <i class="fas fa-arrow-right card-icon"></i>
                             </div>
-                        </a>
-                        <a href="serviços.php" class="card-item">
+                        </button>
+                        <input type="hidden" name="produtoFiltro" value="banner">
+                        <button type="submit" name="filtra" class="card-item">
                             <img src="./img/foto3.jpeg" alt="Card Image">
                             <span class="designer">Banner</span>
                             <h3>Conheça nosso trabalho com banner.</h3>
                             <div class="arrow">
                                 <i class="fas fa-arrow-right card-icon"></i>
                             </div>
-                        </a>
-                        <a href="serviços.php" class="card-item">
+                        </button>
+                        <input type="hidden" name="produtoFiltro" value="fachada">
+                        <button type="submit" name="filtra" class="card-item">
                             <img src="./img/foto10.jpeg" alt="Card Image">
                             <span class="editor">Fachadas</span>
                             <h3>Conheça nosso trabalho com fachadas.</h3>
                             <div class="arrow">
                                 <i class="fas fa-arrow-right card-icon"></i>
                             </div>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>

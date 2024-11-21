@@ -3,6 +3,8 @@
 require_once "conexao.php";
 $conexao = novaConexao();
 
+session_start();
+
 try {
     // Consulta para buscar os dados da tabela
     $sql = "SELECT * FROM produtos";
@@ -20,7 +22,19 @@ try {
         echo "<p>Nenhum resultado encontrado.</p>";
     }
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['filtraCat'])) {
+    if ($_SESSION['filtro']) {
+
+        $id = $_SESSION['filtro']; // Captura o valor da sessão de filtro
+
+        // A consulta SQL agora utiliza um parâmetro para evitar injeção SQL
+        $sql = "SELECT * FROM produtos WHERE nomeCat = :id";
+        $stmt = $conexao->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_STR); // Binding do parâmetro
+        $stmt->execute(); // Executa a consulta
+
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC); // Recupera todos os registros
+
+    } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['filtraCat'])) {
         $id = $_POST['filtraCat']; // Captura o valor do botão de filtro
 
         // A consulta SQL agora utiliza um parâmetro para evitar injeção SQL
@@ -30,6 +44,8 @@ try {
         $stmt->execute(); // Executa a consulta
 
         $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC); // Recupera todos os registros
+
+        unset($_SESSION['filtro']);
     }
 } catch (PDOException $e) {
     echo "<p>Erro na conexão: " . $e->getMessage() . "</p>";
@@ -68,35 +84,53 @@ try {
 <body>
 
     <header class="headline">
-        <nav class="navbar navbar-expand-md">
-            <a href="index.php" class="nav-logo">
-                <h2 class="logo-text">Digital Print</h2>
-            </a>
-            <!-- Menu Hamburguer -->
-            <button class="navbar-toggler" data-toggle="collapse" data-target="#navegacao">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <div class="linha" style="border-bottom: white solid 1px;">
+            <nav class="navbar navbar-expand-md">
+                <a href="index.php" class="nav-logo">
+                    <h2 class="logo-text">Digital Print</h2>
+                </a>
 
-            <!-- navegacao -->
-            <div class="collapse navbar-collapse justify-content-end" id="navegacao">
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="index.php" class="nav-link">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="serviços.php" class="nav-link">Serviços</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#sobre" class="nav-link">Sobre</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="ctt.php" class="nav-link">Contato</a>
-                    </li>
-                </ul>
-            </div>
+                <!-- Menu Hamburguer -->
+                <button id="menuButton" class="navbar-toggler navbar-light" data-toggle="collapse" data-target="#navegacao" onclick="tiraLinha()">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-        </nav>
+                <!-- Navegação no menu hambúrguer -->
+                <div class="collapse navbar-collapse justify-content-end" id="navegacao">
+                    <ul class="nav-menu d-none d-md-flex ml-auto">
+                        <li class="nav-item">
+                            <a href="index.php" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="serviços.php" class="nav-link">Serviços</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="index.php#sobre" class="nav-link">Sobre</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="ctt.php" class="nav-link">Contato</a>
+                        </li>
+                    </ul>
 
+                    <div class="navBackOpacity">
+                        <ul class="nav-menu flex-column d-md-none">
+                            <li class="nav-item">
+                                <a href="index.php" class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="serviços.php" class="nav-link">Serviços</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="index.php#sobre" class="nav-link">Sobre</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="ctt.php" class="nav-link">Contato</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
     </header>
 
     <main>
@@ -139,18 +173,21 @@ try {
         </section>
     </main>
 
-    <main class="mb-5">
-        <div class="container-fluid mb-4">
+    <main class="mb-5" id="galeria">
+        <div class="container-fluid mb-4 mt-5">
             <div class="row justify-content-center text-center">
                 <div class="dropdown">
                     <form method="POST">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Filtrar
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <h5><strong>Filtrar por:</strong></h5>
+                        <ul class="flex-row d-flex justify-content-center filtro">
+                            <li class="m-4">
+                                <!-- Botão de envio que envia o cod_func como valor -->
+                                <button type="submit" class="dropdown-item btnFiltro" name="limpar">
+                                    Todos
+                                </button>
+                            </li>
                             <?php foreach ($filtraCat as $registro): ?>
-                                <li>
+                                <li class="m-4">
                                     <!-- Botão de envio que envia o cod_func como valor -->
                                     <button type="submit" class="dropdown-item btnFiltro" name="filtraCat"
                                         value="<?php echo htmlspecialchars($registro['nomeCat']); ?>">
@@ -159,9 +196,6 @@ try {
                                 </li>
                             <?php endforeach; ?>
                         </ul>
-
-                        <button type="submit" class="btn btn-outline-danger" name="limpar" value="pendente">limpar
-                        </button>
                     </form>
                 </div>
             </div>
@@ -180,7 +214,7 @@ try {
                     if ($contagem % 4 === 0 && $contagem > 0) {
                         echo '</div><div class="row justify-content-center text-center">';
                     }
-                    ?>
+                ?>
                     <div class="mb-4 servicoImgs col-sm-12 col-xl-3">
                         <div class="card">
                             <!-- Exibe a imagem do banco de dados -->
@@ -196,7 +230,7 @@ try {
                             </div>
                         </div>
                     </div>
-                    <?php
+                <?php
                     // Incrementa o contador
                     $contagem++;
                 }
