@@ -144,11 +144,6 @@ h2 {
     margin-right: 15px;
 }
 
-.registro {
-    display: block;
-    width: 100%;
-}
-
 .btnFiltro:hover{
     background-color: #0d6efd;
     color: white;
