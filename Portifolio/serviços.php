@@ -20,7 +20,7 @@ try {
     // Variável para resultados filtrados (inicialmente todos)
     $resultados = $todosProdutos;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['filtraCat'])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['filtraCat'])) {
         $id = $_POST['filtraCat']; // Captura o valor do botão de filtro
 
         $sql = "SELECT * FROM produtos WHERE nomeExib = :id";
@@ -67,7 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['filtraCat'])) {
     <!--Link da seta-->
 
     <link rel="stylesheet"
-
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_forward" />
 
 
@@ -116,7 +115,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['filtraCat'])) {
 
                 <!-- Menu Hamburguer -->
 
-                <button id="menuButton" class="navbar-toggler navbar-light" data-toggle="collapse" data-target="#navegacao" onclick="tiraLinha()">
+                <button id="menuButton" class="navbar-toggler navbar-light" data-toggle="collapse"
+                    data-target="#navegacao" onclick="tiraLinha()">
 
                     <span class="navbar-toggler-icon"></span>
 
@@ -244,13 +244,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['filtraCat'])) {
             <div>
 
                 <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-
                     viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
 
                     <defs>
 
                         <path id="gentle-wave"
-
                             d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
 
                     </defs>
@@ -314,7 +312,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['filtraCat'])) {
                                 if ($contagem > 0 && $contagem % 4 === 0) {
                                     echo '</div><div class="row justify-content-center filtro">';
                                 }
-                            ?>
+                                ?>
                                 <div class="col-4 col-sm-3 col-md-2 m-4">
                                     <!-- Botão de envio que envia o nomeExib como valor -->
                                     <button type="submit" class="dropdown-item btnFiltro" name="filtraCat"
@@ -322,7 +320,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['filtraCat'])) {
                                         <?php echo htmlspecialchars($registro['nomeExib']); ?>
                                     </button>
                                 </div>
-                            <?php
+                                <?php
                                 // Incrementa o contador
                                 $contagem++;
                             }
@@ -347,27 +345,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['filtraCat'])) {
                 <?php
 
                 // Inicializa o contador
-
-                $contagem = 0;
+                
+                $contagem2 = 0;
 
 
 
                 foreach ($resultados as $resultado) {
 
                     // Recupera o valor do campo da imagem
-
+                
                     $imagem = !empty($resultado['imagem']) ? htmlspecialchars($resultado['imagem']) : 'img1/default.jpg';
 
 
 
                     // Inicia uma nova linha a cada 4 cards
-
+                
                     if ($contagem2 % 4 === 0 && $contagem2 > 0) {
 
                         echo '</div><div class="row justify-content-center text-center">';
                     }
 
-                ?>
+                    ?>
 
                     <div class="mb-4 servicoImgs col-sm-12 col-xl-3">
 
@@ -375,7 +373,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['filtraCat'])) {
 
                             <!-- Exibe a imagem do banco de dados -->
 
-                            <div class="card-header" style="background-image: url(../Sistema/produto/<?php echo $imagem; ?>)"></div>
+                            <div class="card-header"
+                                style="background-image: url(../Sistema/produto/<?php echo $imagem; ?>)"></div>
 
                             <div class="card-body">
 
@@ -392,7 +391,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['filtraCat'])) {
                                     ?>
                                 </h5>
                                 <div class="card-footer" style="background-color: white;">
-                                    <a href="https://wa.me/5512991671420?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20um%20pedido." style="color: #442A87; font-size: 12px">Entre em contato e peça já!</a>
+                                    <a href="https://wa.me/5512991671420?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20um%20pedido."
+                                        style="color: #442A87; font-size: 12px">Entre em contato e peça já!</a>
                                 </div>
 
                             </div>
@@ -401,10 +401,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['filtraCat'])) {
 
                     </div>
 
-                <?php
+                    <?php
 
                     // Incrementa o contador
-
+                
                     $contagem2++;
                 }
 
@@ -479,7 +479,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['filtraCat'])) {
                 <div id="footer_social_media">
 
                     <a href="https://www.instagram.com/digitalprintcpv?igsh=MW11azY2OTl6bXBvdw==" target="_blank"
-
                         class="footer_link" id="instagram">
 
                         <i class="fa-brands fa-instagram"></i>
@@ -487,7 +486,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['filtraCat'])) {
                     </a>
 
                     <a href="https://wa.me/5512991671420?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20um%20pedido."
-
                         class="footer_link" target="_blank" id="whatsapp">
 
                         <i class="fa-brands fa-whatsapp"></i>
@@ -523,15 +521,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['filtraCat'])) {
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-
         crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-
         integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-
         crossorigin="anonymous"></script>
 
     <script src="js/bootstrap.min.js"></script>

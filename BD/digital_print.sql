@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 05/12/2024 às 12:07
+-- Tempo de geração: 05/12/2024 às 12:30
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -181,38 +181,37 @@ CREATE TABLE `produtos` (
 --
 
 INSERT INTO `produtos` (`codPro`, `codCat`, `nomeExib`, `nomeCat`, `medida`, `valor`, `imagem`) VALUES
-(10, 3, 'Cartão de Visita', 'Cartão de Visita 500 unid. - Frente', '9x5', 102, ''),
-(11, 4, 'Cartão de Visita', 'Cartão de Visita 500 unid. - Frente x Verso', '9x5', 124, ''),
-(12, 5, 'Cartão de Visita', 'Cartão de Visita 1000 unid. - Frente', '9x5', 130, ''),
-(13, 6, 'Cartão de Visita', 'Cartão de Visita 1000 unid. - Frente x Verso', '9x5', 146, ''),
-(16, 9, 'Cartão de Visita', 'Cartão de Visita Lam. Fosca Arredondado 500 unid.', '9x5', 226, ''),
-(17, 10, 'Cartão de Visita', 'Cartão de Visita Lam. Fosca Arredondado 1000 unid', '9x5', 264, ''),
-(18, 2, 'Banner', 'Banner', '40x60', 35, 'img1/6744c45cc06cd.png'),
-(19, 2, 'Banner', 'Banner', '50x50', 35, ''),
-(20, 2, 'Banner', 'Banner', '40x70', 40, ''),
-(21, 2, 'Banner', 'Banner', '50x70', 40, ''),
-(22, 2, 'Banner', 'Banner', '70x70', 50, ''),
-(23, 2, 'Banner', 'Banner', '60x90', 55, ''),
-(24, 2, 'Banner', 'Banner', '50x100', 55, ''),
-(25, 2, 'Banner', 'Banner', '70x100', 70, ''),
-(26, 2, 'Banner', 'Banner', '90x90', 75, ''),
-(27, 2, 'Banner', 'Banner', '90x100', 85, ''),
-(28, 2, 'Banner', 'Banner', '80x120', 90, ''),
-(29, 2, 'Banner', 'Banner', '90x120', 100, ''),
-(30, 2, 'Banner', 'Banner', '100x120', 115, ''),
-(31, 2, 'Banner', 'Banner', '100x150', 135, ''),
-(32, 2, 'Banner', 'Banner', '150x200', 270, ''),
-(33, 11, 'Panfleto', 'Panfleto 1000 unid. Frente', '10x15', 150, ''),
-(34, 12, 'Panfleto', 'Panfleto 1000 unid. Frente x Verso', '10x15', 165, ''),
-(35, 13, 'Panfleto', 'Panfleto 1000 unid. Frente Couche 70gr', '15x20', 235, ''),
-(36, 14, 'Panfleto', 'Panfleto 1000 unid. Frente x Verso Couche 70gr', '15x20', 270, ''),
-(37, 15, 'Panfleto', 'Panfleto 1000 unid. Frente Couche 90gr', '10x15', 202, ''),
-(38, 16, 'Panfleto', 'Panfleto 1000 unid. Frente x Verso Couche 90gr', '10x15', 235, ''),
-(39, 17, 'Panfleto', 'Panfleto 1000 unid. Frente Couche 90gr', '15x20', 346, ''),
-(40, 18, 'Panfleto', 'Panfleto 1000 unid. Frente x Verso Couche 90gr', '15x20', 406, ''),
-(41, 19, 'Cartão de Visita', 'Cartão de Visita Lam. Fosca 500 unid.', '9x5', 196, ''),
-(42, 20, 'Cartão de Visita', 'Cartão de Visita Lam. Fosca 1000 unid.', '9x5', 234, ''),
-(47, 2, 'Banner', 'Banner', '50x50', 35, '');
+(10, 3, 'Cartão de Visita', 'Cartão de Visita 500 unid. - Frente', '9x5', 102, 'img1/67518bbac3224.png'),
+(11, 4, 'Cartão de Visita', 'Cartão de Visita 500 unid. - Frente x Verso', '9x5', 124, 'img1/67518b24a505f.png'),
+(12, 5, 'Cartão de Visita', 'Cartão de Visita 1000 unid. - Frente', '9x5', 130, 'img1/67518bbfe872d.png'),
+(13, 6, 'Cartão de Visita', 'Cartão de Visita 1000 unid. - Frente x Verso', '9x5', 146, 'img1/67518b2a2cf47.png'),
+(16, 9, 'Cartão de Visita', 'Cartão de Visita Lam. Fosca Arredondado 500 unid.', '9x5', 226, 'img1/67518b49f0997.png'),
+(17, 10, 'Cartão de Visita', 'Cartão de Visita Lam. Fosca Arredondado 1000 unid', '9x5', 264, 'img1/67518b4ef0292.png'),
+(18, 2, 'Banner', 'Banner', '40x60', 35, 'img1/67518c21889da.png'),
+(19, 2, 'Banner', 'Banner', '50x50', 35, 'img1/67518c41a816b.png'),
+(20, 2, 'Banner', 'Banner', '40x70', 40, 'img1/67518d4ba9d40.png'),
+(21, 2, 'Banner', 'Banner', '50x70', 40, 'img1/67518d766ba2e.png'),
+(22, 2, 'Banner', 'Banner', '70x70', 50, 'img1/67518dc8c40b9.png'),
+(23, 2, 'Banner', 'Banner', '60x90', 55, 'img1/67518dd382b4c.png'),
+(24, 2, 'Banner', 'Banner', '50x100', 55, 'img1/67518de2e70d5.png'),
+(25, 2, 'Banner', 'Banner', '70x100', 70, 'img1/67518debbf45d.png'),
+(26, 2, 'Banner', 'Banner', '90x90', 75, 'img1/67518dfc8e6b9.png'),
+(27, 2, 'Banner', 'Banner', '90x100', 85, 'img1/67518e04ccd77.png'),
+(28, 2, 'Banner', 'Banner', '80x120', 90, 'img1/67518e0c4e4ee.png'),
+(29, 2, 'Banner', 'Banner', '90x120', 100, 'img1/67518e11b0d82.png'),
+(30, 2, 'Banner', 'Banner', '100x120', 115, 'img1/67518e2381c65.png'),
+(31, 2, 'Banner', 'Banner', '100x150', 135, 'img1/67518e2c07d88.png'),
+(32, 2, 'Banner', 'Banner', '150x200', 270, 'img1/67518e30c6acd.png'),
+(33, 11, 'Panfleto', 'Panfleto 1000 unid. Frente Couche 70gr', '10x15', 150, 'img1/67518cc503357.png'),
+(34, 12, 'Panfleto', 'Panfleto 1000 unid. Frente x Verso Couche 70gr', '10x15', 165, 'img1/67518cd6d6c72.png'),
+(35, 13, 'Panfleto', 'Panfleto 1000 unid. Frente Couche 70gr', '15x20', 235, 'img1/67518cee63d20.png'),
+(36, 14, 'Panfleto', 'Panfleto 1000 unid. Frente x Verso Couche 70gr', '15x20', 270, 'img1/67518cf707056.png'),
+(37, 15, 'Panfleto', 'Panfleto 1000 unid. Frente Couche 90gr', '10x15', 202, 'img1/67518d00a463e.png'),
+(38, 16, 'Panfleto', 'Panfleto 1000 unid. Frente x Verso Couche 90gr', '10x15', 235, 'img1/67518d0a8b404.png'),
+(39, 17, 'Panfleto', 'Panfleto 1000 unid. Frente Couche 90gr', '15x20', 346, 'img1/67518d142cf77.png'),
+(40, 18, 'Panfleto', 'Panfleto 1000 unid. Frente x Verso Couche 90gr', '15x20', 406, 'img1/67518d19bf42d.png'),
+(41, 19, 'Cartão de Visita', 'Cartão de Visita Lam. Fosca 500 unid.', '9x5', 196, 'img1/67518c6871710.png'),
+(42, 20, 'Cartão de Visita', 'Cartão de Visita Lam. Fosca 1000 unid.', '9x5', 234, 'img1/67518c71136d4.png');
 
 --
 -- Índices para tabelas despejadas
