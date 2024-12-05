@@ -187,7 +187,7 @@ INSERT INTO `produtos` (`codPro`, `codCat`, `nomeExib`, `nomeCat`, `medida`, `va
 (13, 6, 'Cartão de Visita', 'Cartão de Visita 1000 unid. - Frente x Verso', '9x5', 146, ''),
 (16, 9, 'Cartão de Visita', 'Cartão de Visita Lam. Fosca Arredondado 500 unid.', '9x5', 226, ''),
 (17, 10, 'Cartão de Visita', 'Cartão de Visita Lam. Fosca Arredondado 1000 unid', '9x5', 264, ''),
-(18, 2, 'Banner', 'Banner', '40x60', 35, 'img1/6744c45cc06cd.png'),
+(18, 2, 'Banner', 'Banner', '40x60', 35, ''),
 (19, 2, 'Banner', 'Banner', '50x50', 35, ''),
 (20, 2, 'Banner', 'Banner', '40x70', 40, ''),
 (21, 2, 'Banner', 'Banner', '50x70', 40, ''),
