@@ -36,24 +36,6 @@ try {
     echo "Erro: " . $e->getMessage();
 }
 
-if (isset($_POST['delete'])) {
-    $id = $_POST['cod_itensPed'];
-
-    $sql = "DELETE FROM itens_pedido WHERE cod_itensPed = :id";
-    $stmt = $conexao->prepare($sql);
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-    $stmt->execute();
-
-    if ($stmt->execute()) {
-        echo "Linha excluída com sucesso!";
-        // Redireciona para evitar reenviar o formulário
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit;
-    } else {
-        echo "Erro ao excluir linha: ";
-    }
-}
-
 
 //---------------------------------------------------------------------------------------------------------------
 
@@ -81,10 +63,35 @@ if (isset($_POST['enviar'])) {
         $stmt->bindParam(':codPed', $codPed, PDO::PARAM_INT); // Vincula o valor de codPed novamente
         $stmt->execute();
 
+        if ($_POST['entrega'] == 'retirada'){
+            $sql = "UPDATE pagentg SET logradouro = :logr, numero = :num, bairro = :bair, cidade = :cid, estado = :est, cep = :cep WHERE codPed = :codPed";
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindValue(':logr', " ");
+        $stmt->bindValue(':num', " ");
+        $stmt->bindValue(':bair', " ");
+        $stmt->bindValue(':cid', " ");
+        $stmt->bindValue(':est', " ");
+        $stmt->bindValue(':cep', " ");
+        $stmt->bindParam(':codPed', $codPed, PDO::PARAM_INT); // Vincula o valor de codPed novamente
+        $stmt->execute();
+        }
+
+        if ($_SESSION['origem']){
+            header('location: '. $_SESSION['origem'][0]);
+        } else {
         header('location: consPed.php');
+        }
     } catch (PDOException $e) {
         $erro = true; // Configura erro se houver
         echo "Erro: " . $e->getMessage();
+    }
+}
+if (isset($_POST['cancelar'])) {
+
+    if($_SESSION['origem']){
+    header("Location: " . $_SESSION['origem'][0]);
+    } else{
+        echo ("erro ao retornar à página");
     }
 }
 
@@ -175,6 +182,7 @@ if (isset($_POST['enviar'])) {
         </nav> <!-- FECHA CABECALHO -->
     </div> <!-- FECHA CONTAINER DO CABECALHO -->
     <div class="container container-custom">
+    
         <h1 class="text-center mb-5">Edição de Dados do Pedido</h1>
 
         <form method="POST">
@@ -308,8 +316,7 @@ if (isset($_POST['enviar'])) {
             </div>
             <div class="row mt-4 btn-group-custom">
 
-                <button type="button" class="btn btn-outline-dark btn-personalizado"
-                    onclick="window.location.href='infoEntr.php';" name="cancelar">Cancelar Alterações</button>
+                <button type="submit" class="btn btn-outline-dark btn-personalizado" name="cancelar">Cancelar Alterações</button>
 
                 <button type="submit" class="btn btn-success btn-personalizado" name="enviar">Finalizar
                     Alterações</button>

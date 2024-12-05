@@ -1239,3 +1239,9 @@ header .navbar {
         margin-top: 35%;
     }
 }
+
+
+.ctt textarea::placeholder {
+    color: #fff; /* Define o texto do placeholder como branco */
+    opacity: 1; /* Garante que a opacidade do placeholder não esteja reduzida */
+}

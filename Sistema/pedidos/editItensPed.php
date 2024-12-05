@@ -57,7 +57,6 @@ if (isset($_POST['salvar'])) {  // Verifica se o formulário foi enviado
         $stmt->execute();
 
         header("Location: " . $_SESSION['origem'][0]);
-        exit();
     } catch (PDOException $e) {
         $error = true; // Configura erro se houver uma exceção
         echo "Erro: " . $e->getMessage();
@@ -66,8 +65,11 @@ if (isset($_POST['salvar'])) {  // Verifica se o formulário foi enviado
 
 if (isset($_POST['cancelar'])) {
 
+    if($_SESSION['origem']){
     header("Location: " . $_SESSION['origem'][0]);
-    exit;
+    } else{
+        echo ("erro ao retornar à página");
+    }
 }
 
 
@@ -179,6 +181,7 @@ $showNovCat = $novCat === 'Novo';
             </a>
         </nav> <!-- FECHA CABECALHO -->
     </div> <!-- FECHA CONTAINER DO CABECALHO -->
+
     <h1 class="text-center mb-4">Edição de Item do Pedido</h1>
     <form method="POST" onsubmit="resetForm()">
         <div class="container container-custom">

@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {  // Verifica se o formulário foi e
         // Executar a SQL
         $stmt->execute();
 
-
+        $_SESSION['origem'] = ["cadPed.php"];
         header("Location: ./cadPed2.php");
     } catch (PDOException $e) {
         $error = true; // Configura erro se houver uma exceção
@@ -155,7 +155,7 @@ while ($row = $resultado->fetch(PDO::FETCH_ASSOC)) {
                     </div>
                     <div class="form-group mb-3">
                         <label class="form-label">Data do pedido:</label>
-                        <input type="date" class="form-control data" name="datPedido" required>
+                        <input type="date" class="form-control data" name="datPedido" readonly>
                     </div>
 
                     <div class="form-group mb-3">

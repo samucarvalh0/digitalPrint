@@ -145,8 +145,8 @@ h2 {
 }
 
 .registro {
-    margin-left: 10px;
-    margin-right: 10px
+    display: block;
+    width: 100%;
 }
 
 .btnFiltro:hover{

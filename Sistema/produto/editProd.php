@@ -3,6 +3,8 @@ include('../protect.php'); // Inclui a função de proteção ao acesso da pági
 require_once('../conexao.php');
 $conexao = novaConexao();
 
+unset($_SESSION['origem']);
+
 $registros = [];
 $erro = false;
 
@@ -12,7 +14,7 @@ try {
     $stmt->execute();
     $registros = $stmt->fetchAll(PDO::FETCH_ASSOC); // Recupera todos os registros
 
-    $sql_cat = "SELECT * FROM categoria";
+    $sql_cat = "SELECT * FROM produtos";
     $stmt = $conexao->prepare($sql_cat);
     $stmt->execute();
     $registroCat = $stmt->fetchAll(PDO::FETCH_ASSOC); // Recupera todos os registros
@@ -21,14 +23,13 @@ try {
         $id = $_POST['filtraCat']; // Captura o valor do botão de filtro
 
         // A consulta SQL agora utiliza um parâmetro para evitar injeção SQL
-        $sql = "SELECT * FROM produtos WHERE nomeCat = :id";
+        $sql = "SELECT * FROM produtos WHERE nomeExib = :id";
         $stmt = $conexao->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_STR); // Binding do parâmetro
         $stmt->execute(); // Executa a consulta
 
         $registros = $stmt->fetchAll(PDO::FETCH_ASSOC); // Recupera todos os registros
     }
-
 } catch (PDOException $e) {
     $erro = true; // Configura erro se houver uma exceção
     echo "Erro: " . $e->getMessage();
@@ -37,20 +38,43 @@ try {
 if (isset($_POST['delete'])) {
     $id = $_POST['codPro'];
 
-    // SQL para excluir a linha com base no ID
-    $sql = "DELETE FROM produtos WHERE codPro = :id";
+    try {
+        $sqlSelect = "SELECT imagem FROM produtos WHERE codPro = :id";
+        $stmtSelect = $conexao->prepare($sqlSelect);
+        $stmtSelect->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmtSelect->execute();
+        $produto = $stmtSelect->fetch(PDO::FETCH_ASSOC);
 
-    // Prepara a declaração SQL
-    $stmt = $conexao->prepare($sql);
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        if ($produto && isset($produto['imagem'])) {
+            $caminhoArquivo = $produto['imagem'];
 
-    if ($stmt->execute()) {
-        echo "Linha excluída com sucesso!";
-        // Redireciona para evitar reenviar o formulário
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit;
-    } else {
-        echo "Erro ao excluir linha: ";
+            // Verifica e exclui o arquivo se ele existir
+            if (file_exists($caminhoArquivo)) {
+                if (unlink($caminhoArquivo)) {
+                    echo "Arquivo excluído com sucesso!";
+                } else {
+                    echo "Erro ao excluir o arquivo.";
+                }
+            } else {
+                echo "O arquivo não existe ou já foi excluído.";
+            }
+        }
+
+        // SQL para excluir a linha com base no ID
+        $sqlDelete = "DELETE FROM produtos WHERE codPro = :id";
+        $stmtDelete = $conexao->prepare($sqlDelete);
+        $stmtDelete->bindParam(':id', $id, PDO::PARAM_INT);
+
+        if ($stmtDelete->execute()) {
+            echo "Linha excluída com sucesso!";
+            // Redireciona para evitar reenviar o formulário
+            header("Location: editProd.php");
+            exit;
+        } else {
+            echo "Erro ao excluir a linha do banco de dados.";
+        }
+    } catch (PDOException $e) {
+        echo "Erro: " . $e->getMessage();
     }
 }
 
@@ -160,21 +184,33 @@ if (isset($_POST['edit'])) {
                 <form method="POST">
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Categoria
+                        Nome
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <?php foreach ($registroCat as $registro): ?>
+                        <?php
+                        // Array para rastrear valores únicos
+                        $filtrosExibidos = [];
+
+                        foreach ($registroCat as $registro):
+                            // Verifica se o valor já foi exibido
+                            if (in_array($registro['nomeExib'], $filtrosExibidos)) {
+                                continue; // Ignora valores duplicados
+                            }
+
+                            // Adiciona o valor ao array de rastreamento
+                            $filtrosExibidos[] = $registro['nomeExib'];
+                        ?>
                             <li>
-                                <!-- Botão de envio que envia o cod_func como valor -->
-                                <button type="submit" class="dropdown-item btnFiltro" name="filtraCat" value="<?php echo htmlspecialchars($registro['nome']); ?>">
-                                    <?php echo htmlspecialchars($registro['nome']); ?>
+                                <!-- Botão de envio que envia o nomeExib como valor -->
+                                <button type="submit" class="dropdown-item btnFiltro" name="filtraCat"
+                                    value="<?php echo htmlspecialchars($registro['nomeExib']); ?>">
+                                    <?php echo htmlspecialchars($registro['nomeExib']); ?>
                                 </button>
                             </li>
                         <?php endforeach; ?>
                     </ul>
 
-                    <button type="submit" class="btn btn-outline-danger" name="limpar"
-                        value="pendente">limpar
+                    <button type="submit" class="btn btn-outline-danger" name="limpar" value="pendente">limpar
                     </button>
                 </form>
             </div>
@@ -196,8 +232,13 @@ if (isset($_POST['edit'])) {
                             </div>
                         </th>
                         <th>
-                            <div class="row justify-content-center text-center titleCons">
-                                Categoria
+                            <div class="row justify-content-center titleCons">
+                                Nome de exib.
+                            </div>
+                        </th>
+                        <th>
+                            <div class="row justify-content-center titleCons">
+                                Produto
                             </div>
                         </th>
                         <th>
@@ -208,11 +249,6 @@ if (isset($_POST['edit'])) {
                         <th>
                             <div class="row justify-content-center text-center titleCons">
                                 Valor
-                            </div>
-                        </th>
-                        <th>
-                            <div class="row justify-content-center text-center titleCons">
-                                Img Dir.
                             </div>
                         </th>
                         <th>
@@ -232,6 +268,11 @@ if (isset($_POST['edit'])) {
                             </td>
                             <td>
                                 <div class="row justify-content-center registro">
+                                    <?php echo ($registro['nomeExib']); ?>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row justify-content-center registro">
                                     <?php echo ($registro['nomeCat']); ?>
                                 </div>
                             </td>
@@ -243,11 +284,6 @@ if (isset($_POST['edit'])) {
                             <td>
                                 <div class="row justify-content-center registro">
                                     <?php echo ($registro['valor']); ?>
-                                </div>
-                            </td>
-                            <td class="text-truncate">
-                                <div class="row justify-content-center registro">
-                                    <?php echo ($registro['imagem']); ?>
                                 </div>
                             </td>
                             <td>

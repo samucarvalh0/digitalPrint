@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {  // Verifica se o formulário foi e
             // Código para processar o upload do arquivo
             $ext = strtolower(substr($_FILES['file']['name'], -4)); // Obtém a extensão do arquivo
             $name = strtolower(substr($_FILES['file']['name'], 0, -4)); // Obtém o nome do arquivo sem a extensão
-            $new_name = $name . '' . date("YmdHis") . $ext; // Cria um novo nome único para o arquivo
+            $new_name = $name . '' . date("YmdHis") . '.png'; // Força a extensão para .png
             $dir = 'img1/'; // Diretório para salvar as imagens
 
             if (!file_exists($dir)) {
@@ -49,11 +49,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {  // Verifica se o formulário foi e
                 $codCat = $conexao->lastInsertId();
 
                 // Inserindo o produto na tabela 'produtos'
-                $sql_insertProd = "INSERT INTO produtos (codCat, nomeCat, medida, valor, imagem) VALUES (:p_p, :p_n, :p_m, :p_v, :p_img)";
+                $sql_insertProd = "INSERT INTO produtos (codCat, nomeExib, nomeCat, medida, valor, imagem) VALUES (:p_p, :p_ne, :p_n, :p_m, :p_v, :p_img)";
                 $stmt = $conexao->prepare($sql_insertProd);
 
                 // Associar os valores aos placeholders
                 $stmt->bindValue(':p_p', $codCat);
+                $stmt->bindValue(':p_ne', $_POST['exibicao']);
                 $stmt->bindValue(':p_n', $nomeCategoria);
                 $stmt->bindValue(':p_m', $_POST['medida']);
                 $stmt->bindValue(':p_v', $_POST['valor']);
@@ -84,11 +85,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {  // Verifica se o formulário foi e
                 $nomeCat = $nome['nome']; // Acessa o valor 'nome' do array associativo
             }
 
-            $sql = "INSERT INTO produtos (codCat, nomeCat, medida, valor, imagem) VALUES (:p_p, :p_n, :p_m, :p_v, :p_img)";
+            $sql = "INSERT INTO produtos (codCat, nomeExib, nomeCat, medida, valor, imagem) VALUES (:p_p, :p_ne, :p_n, :p_m, :p_v, :p_img)";
             $stmt = $conexao->prepare($sql);
 
             // Associar os valores aos placeholders
             $stmt->bindValue(':p_p', $codCat);
+            $stmt->bindValue(':p_ne', $_POST['exibicao']);
             $stmt->bindValue(':p_n', $nomeCat ?? $nomeCategoria); // Usando o nome da nova categoria ou existente
             $stmt->bindValue(':p_m', $_POST['medida']);
             $stmt->bindValue(':p_v', $_POST['valor']);
@@ -211,6 +213,10 @@ $showNovCat = $novCat === 'Novo';
             <div class="row row-custom">
                 <div class="col-custom">
                     <div class="form-group mb-3">
+                        <label class="form-label">Nome de Exibição:</label>
+                        <input type="text" class="form-control" name="exibicao" placeholder="Nome que aparecerá no portifólio" required>
+                    </div>
+                    <div class="form-group mb-3">
                         <label class="form-label">Categoria:</label>
                         <select class="form-select" id="categoria" name="codCat" onchange="toggleNovCat(this.value)">
                             <option selected disabled>Selecione a categoria</option>
@@ -223,7 +229,8 @@ $showNovCat = $novCat === 'Novo';
                         </select>
                     </div>
 
-                    <div class="form-group mb-3" id="novaCategoriaDiv" style="<?= $showNovCat ? 'display: block;' : 'display: none;' ?>">
+                    <div class="form-group mb-3" id="novaCategoriaDiv"
+                        style="<?= $showNovCat ? 'display: block;' : 'display: none;' ?>">
                         <label class="form-label">Nova Categoria:</label>
                         <input type="text" class="form-control" id="novaCategoria" name="nome">
                     </div>
@@ -246,7 +253,8 @@ $showNovCat = $novCat === 'Novo';
                 </div>
             </div>
             <div class="row mt-4 btn-group-custom">
-                <button type="reset" class="btn btn-outline-danger btn-personalizado">Cancelar</button>
+                <button type="button" class="btn btn-outline-danger btn-personalizado"
+                    onclick="window.location.href='./editProd.php';">Cancelar</button>
                 <button type="submit" class="btn btn-success btn-personalizado">Cadastrar produto</button>
             </div>
         </form>
@@ -267,7 +275,7 @@ $showNovCat = $novCat === 'Novo';
         }
 
         // Inicializar a exibição do campo "Nova Categoria" com base na seleção atual
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             toggleNovCat(document.getElementById('codCat').value);
         });
     </script>

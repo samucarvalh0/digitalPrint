@@ -5,6 +5,8 @@ include('../protect.php'); // Inclui a função de proteção ao acesso da pági
 require_once('../conexao.php');
 $conexao = novaConexao();
 
+unset($_SESSION['origem']);
+
 $registros = [];
 $vTot = [];
 $erro = false;
@@ -110,7 +112,7 @@ if (isset($_POST['delete'])) {
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
 
-    $sql = "DELETE FROM pagEntg WHERE codPed = :id";
+    $sql = "DELETE FROM pagentg WHERE codPed = :id";
     $stmt = $conexao->prepare($sql);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
@@ -118,7 +120,7 @@ if (isset($_POST['delete'])) {
     if ($stmt->execute()) {
         echo "Linha excluída com sucesso!";
         // Redireciona para evitar reenviar o formulário
-        header("Location: " . $_SERVER['PHP_SELF']);
+        header("Location: consPed.php");
         exit;
     } else {
         echo "Erro ao excluir linha: ";
@@ -234,6 +236,7 @@ if (isset($_POST['visuEntr'])) {
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="../produto/cadProd.php">Cadastro</a>
                             <a class="dropdown-item" href="../produto/editProd.php">Edição</a>
+                            <a class="dropdown-item" href="../produto/categoria.php">Categorias</a>
                         </div>
                     </li> <!-- FECHA O DROPDOWN MENU-->
 

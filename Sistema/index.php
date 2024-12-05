@@ -77,11 +77,6 @@ if (isset($_POST['login']) && isset($_POST['senha'])) {
                                     name="senha">
                             </div>
                             <button class="btn btn-primary btn-block">Entrar</button>
-                            <div class="form-group text-center">
-                                <a href="#" class="small">Esqueci a senha</a>
-                                <!-- cria um pequeno texto escrito esqueci senha, redirecionará
-                                 para uma tela de recuperação -->
-                            </div>
                         </form>
                     </div>
                 </div>

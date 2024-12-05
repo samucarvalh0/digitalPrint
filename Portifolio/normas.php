@@ -82,7 +82,7 @@
     <main>
         <section class="hero-section">
             <div class="container d-flex flex-column justify-content-center align-items-center">
-                <div class="text-center mb-5" style="min-height: 100vh; margin-top: 15%; color: white;">
+                <div class="text-center mb-5" style="min-height: 100vh; margin-top: 35%; color: white;">
                     <h1 class="display-4 mb-4">Normas de Segurança e Privacidade</h1>
 
                     <p>Bem-vindo! A seguir, apresentamos a Política de Privacidade da Digital Print Caçapava.</p>
@@ -139,7 +139,7 @@
     <footer class="footer_principal">
         <div id="footer_content">
             <div id="footer_contacts">
-                <h1><a href="#"><img src="img/Dzao.png" height="80px"></a></h1>
+                <h1><a href="index.php"><img src="img/Dzao.png" height="80px"></a></h1>
                 <p>É tudo sobre seus sonhos</p>
             </div>
 

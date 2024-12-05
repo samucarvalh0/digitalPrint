@@ -1,29 +1,43 @@
 <?php
+// Inclua o autoloader do PHPMailer
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'phpmailer/src/Exception.php';
+require 'phpmailer/src/PHPMailer.php';
+require 'phpmailer/src/SMTP.php';
+
+// Crie uma nova instância do PHPMailer
+$mail = new PHPMailer(true);
+
 if (isset($_POST['enviar'])) {
-    // Coletando os dados do formulário
-    $nome = $_POST['nome']; // Nome do remetente
-    $sobrenome = $_POST['sobrenome']; // Sobrenome do remetente
-    $email = $_POST['email']; // E-mail do remetente
-    $telefone = $_POST['tel']; // Telefone do remetente
-    $assunto = $_POST['assunto']; // Assunto da mensagem
+    try {
+        // Configurações do servidor SMTP
+        $mail->isSMTP(); // Use SMTP
+        $mail->Host = 'smtp.gmail.com'; // Servidor SMTP
+        $mail->SMTPAuth = true; // Ativar autenticação SMTP
+        $mail->Username = 'cttdigitalprintcpv@gmail.com'; // Seu e-mail
+        $mail->Password = 'adrfnyhtstvxudni'; // Sua senha de app
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Habilitar criptografia TLS
+        $mail->Port = 587; // Porta SMTP (Gmail usa 587)
 
-    // Destinatário
-    $para = "samuel.j.a.carvalho@gmail.com";
+        // Configurações do PHPMailer para UTF-8
+        $mail->CharSet = 'UTF-8';
+        $mail->Encoding = 'base64';
 
-    // Corpo da mensagem
-    $mensagem = "Nome: " . $nome . " " . $sobrenome . "\r\n";
-    $mensagem .= "Telefone: " . $telefone . "\r\n";
-    $mensagem .= "Mensagem: " . $assunto . "\r\n";
+        // Configurações do e-mail
+        $mail->setFrom($_POST['email'], $_POST['nome']); // E-mail e nome do remetente
+        $mail->addAddress('samuel.j.a.carvalho@gmail.com'); // E-mail do destinatário
+        $mail->addReplyTo($_POST['email'], $_POST['nome']); // Define o endereço de resposta
 
-    // Cabeçalhos
-    $cabecalhos = "From: " . $email . "\r\n" .
-        "X-Mailer: PHP/" . phpversion();
+        $mail->isHTML(true); // Permitir HTML no corpo do e-mail
+        $mail->Subject = $_POST['assunto']; // Assunto
+        $mail->Body = $_POST['mensagem']; // Corpo do e-mail
 
-    // Envio do e-mail
-    if (mail($para, "Mensagem do formulário de contato", $mensagem, $cabecalhos)) {
-        echo "E-mail enviado com sucesso!";
-    } else {
-        echo "Falha no envio do e-mail.";
+        // Enviar e-mail
+        $mail->send();
+    } catch (Exception $e) {
+        echo "Erro ao enviar mensagem: {$mail->ErrorInfo}";
     }
 }
 ?>
@@ -38,7 +52,7 @@ if (isset($_POST['enviar'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="style.css?v=1.6">
+    <link rel="stylesheet" href="style.css?v=1.7">
     <link rel="icon" href="./img/Dzao.png">
 
     <!--Link da seta-->
@@ -67,7 +81,8 @@ if (isset($_POST['enviar'])) {
                 </a>
 
                 <!-- Menu Hamburguer -->
-                <button id="menuButton" class="navbar-toggler navbar-light" data-toggle="collapse" data-target="#navegacao" onclick="tiraLinha()">
+                <button id="menuButton" class="navbar-toggler navbar-light" data-toggle="collapse"
+                    data-target="#navegacao" onclick="tiraLinha()">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -125,7 +140,7 @@ if (isset($_POST['enviar'])) {
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row mb-5">
                             <div class="col-sm-12 col-md-6">
                                 <input type="email" id="email" placeholder="Email" name="email" required />
                             </div>
@@ -134,10 +149,11 @@ if (isset($_POST['enviar'])) {
                             </div>
                         </div>
 
-                        <h4>Envie sua mensagem...</h4>
-                        <textarea name="assunto" required></textarea>
+                        <div class="row justify-content-center text-center">
+                            <input type="text" name="assunto" id="assunto" placeholder="Título" class="mb-4">
+                            <textarea name="mensagem" required placeholder="Mensagem"></textarea>
+                        </div>
                         <button type="submit" name="enviar" id="button">Enviar</button>
-
                     </form>
                 </div>
             </section>

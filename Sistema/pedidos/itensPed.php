@@ -4,6 +4,7 @@ session_start();
 include('../protect.php'); // Inclui a função de proteção ao acesso da página
 require_once('../conexao.php');
 $conexao = novaConexao();
+unset($_SESSION['origem']);
 
 $registros = [];
 $erro = false;

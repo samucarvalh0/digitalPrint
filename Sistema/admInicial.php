@@ -6,6 +6,7 @@ $registrosAgenda = [];
 $registrosPedido = [];
 $nome = $_SESSION['cod_func'];
 $erro = false;
+unset($_SESSION['origem']);
 
 //---------------------------- FUNCIONARIOS ---------------------------------------
 
@@ -35,7 +36,7 @@ if (isset($_POST['deleteAgenda'])) {
     if ($stmt->execute()) {
         echo "Linha excluída com sucesso!";
         // Redireciona para evitar reenviar o formulário
-        header("Location: " . $_SERVER['PHP_SELF']);
+        header("Location: admInicial.php");
         exit;
     } else {
         echo "Erro ao excluir linha: ";
@@ -133,7 +134,7 @@ if (isset($_POST['delete'])) {
     if ($stmt->execute()) {
         echo "Linha excluída com sucesso!";
         // Redireciona para evitar reenviar o formulário
-        header("Location: " . $_SERVER['PHP_SELF']);
+        header("Location: admInicial.php");
         exit;
     } else {
         echo "Erro ao excluir linha: ";
@@ -501,6 +502,8 @@ if (isset($_POST['editPed'])) {
         </div>
     <?php endif; ?>
 
+
+    <!--
     <hr class="mt-5 mb-5">
 
     <?php if ($erro): ?>
@@ -656,6 +659,7 @@ if (isset($_POST['editPed'])) {
             </table>
         </div>
     <?php endif; ?>
+                    -->
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>

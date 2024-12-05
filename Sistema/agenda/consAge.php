@@ -4,6 +4,8 @@ require_once('../conexao.php');
 $conexao = novaConexao();
 $erro = false;
 
+unset($_SESSION['origem']);
+
 $sql_listaFunc = "SELECT * FROM funcionarios";
 $stmt = $conexao->prepare($sql_listaFunc);
 $stmt->execute();
@@ -31,7 +33,6 @@ try {
             $stmt = $conexao->prepare($sql);
             $stmt->execute();
             $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
         } else if ($statusFiltro === 'concluído') {
 
             $sql = "SELECT * FROM agenda WHERE status = 'concluído'";
@@ -111,6 +112,24 @@ if (isset($_POST['concluidaAgend'])) {
     $stmt->execute();
 
     header('location: consAge.php');
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
+    $searchTermAgen = $_POST['search'];
+
+    if (is_numeric($searchTermAgen)) {
+        $intervaloDiasAgend = intval($searchTermAgen);
+
+        if ($intervaloDiasAgend == 0) {
+            $intervaloDiasAgend = 31;
+        }
+
+        $sqlAgenda = "SELECT * FROM agenda WHERE dataPrazo BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL :intervaloDiasAgend DAY) ORDER BY dataPrazo ASC LIMIT 0, 5"; //filtra registros por data mais próxima
+        $stmt = $conexao->prepare($sqlAgenda);
+        $stmt->bindValue(':intervaloDiasAgend', $intervaloDiasAgend, PDO::PARAM_INT);
+        $stmt->execute();
+        $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>
 
@@ -209,6 +228,15 @@ if (isset($_POST['concluidaAgend'])) {
 
             <div class="dropdown">
                 <form method="POST">
+                    <div class="row justify-content-center text-center mb-3">
+                        <div class="col-4">
+                            <input type="text" class="form-control" name="search"
+                                placeholder="Digite o intervalo de dias">
+                        </div>
+                        <div class="col-1">
+                            <button type="submit" class="btn btn-primary">Pesquisar</button>
+                        </div>
+                    </div>
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Funcionário
@@ -278,137 +306,74 @@ if (isset($_POST['concluidaAgend'])) {
             Não foi possível carregar os dados.
         </div>
     <?php else: ?>
-        <div class="container consContainer">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>
-                            <div class="row justify-content-center text-center titleCons">
-                                ID
-                            </div>
-                        </th>
-                        <th>
-                            <div class="row justify-content-center text-center titleCons">
-                                Responsável
-                            </div>
-                        </th>
-                        <th>
-                            <div class="row justify-content-center text-center titleCons">
-                                Título
-                            </div>
-                        </th>
-                        <th>
-                            <div class="row justify-content-center text-center titleCons">
-                                Data de Registro
-                            </div>
-                        </th>
-                        <th>
-                            <div class="row justify-content-center text-center titleCons">
-                                Data de Prazo
-                            </div>
-                        </th>
-                        <th>
-                            <div class="row justify-content-center text-center titleCons">
-                                Informação
-                            </div>
-                        </th>
-                        <th>
-                            <div class="row justify-content-center text-center titleCons">
-                                Status
-                            </div>
-                        </th>
-                        <th>
-                            <div class="row justify-content-center text-center titleCons">
-                                Operações
-                            </div>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($registros as $registro): ?>
-                        <tr>
-                            <td>
-                                <div class="row justify-content-center registro">
-                                    <?php echo ($registro['codAgend']); ?>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="row justify-content-center registro">
-                                    <?php echo ($registro['responsavel']); ?>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="row justify-content-center registro">
-                                    <?php echo ($registro['titulo']); ?>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="row justify-content-center registro">
-                                    <?php echo (date('d/m/Y', strtotime($registro['dataRegistro']))); ?>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="row justify-content-center registro">
-                                    <?php echo (date('d/m/Y', strtotime($registro['dataPrazo']))); ?>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="row justify-content-center registro">
-                                    <?php echo ($registro['informacao']); ?>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="row justify-content-center registro">
-                                    <?php echo ($registro['status']); ?>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="row text-center justify-content-center operacoes">
-                                    <div class="col-3 oprBtn">
-                                        <form method="POST">
-                                            <input type="hidden" name="codAgend" value="<?php echo $registro['codAgend']; ?>">
-                                            <button type="submit" name="delete" class="btn btn-outline-danger">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-                                                </svg>
-                                            </button>
-                                        </form>
-                                    </div>
-                                    <div class="col-3 oprBtn">
-                                        <form method="POST">
-                                            <input type="hidden" name="codAgend" value="<?php echo $registro['codAgend']; ?>">
-                                            <button type="submit" name="edit" class="btn btn-outline-primary">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                                    <path fill-rule="evenodd"
-                                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                                                </svg>
-                                            </button>
-                                        </form>
-                                    </div>
-                                    <div class="col-3 oprBtn">
-                                        <form method="POST">
-                                            <input type="hidden" name="codAgend" value="<?php echo $registro['codAgend']; ?>">
-                                            <button type="submit" name="concluidaAgend" class="btn btn-outline-success">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                                                </svg>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
+        <?php foreach ($registros as $registro): ?>
+            <div class="mt-5 container consContainer" style="width: 900px">
+                <div class="row row-custom">
+                    <div class="form-group mb-3">
+                        <p><strong>ID:</strong> <?php echo htmlspecialchars($registro['codAgend']); ?></p>
+                    </div>
+                    <hr>
+                    <div class="form-group mb-3">
+                        <p><strong>Responsável:</strong> <?php echo htmlspecialchars($registro['responsavel']); ?></p>
+                    </div>
+                    <div class="form-group mb-3">
+                        <p><strong>Título:</strong> <?php echo htmlspecialchars($registro['titulo']); ?></p>
+                    </div>
+                    <div class="form-group mb-3">
+                        <p><strong>Data de Registro:</strong> <?php echo (date('d/m/Y', strtotime($registro['dataRegistro']))); ?></p>
+                    </div>
+                    <div class="form-group mb-3">
+                        <p><strong>Data de Prazo:</strong> <?php echo (date('d/m/Y', strtotime($registro['dataPrazo']))); ?></p>
+                    </div>
+                    <div class="form-group mb-3">
+                        <p><strong>Detalhes:</strong> <?php echo htmlspecialchars($registro['informacao']); ?></p>
+                    </div>
+                    <hr>
+                    <div class="form-group mb-3">
+                        <p><strong>Status:</strong> <?php echo htmlspecialchars($registro['status']); ?></p>
+                    </div>
+                </div>
+                <form method="POST">
+                    <div class="row">
+
+                        <div class="col-auto">
+                            <input type="hidden" name="codAgend" value="<?php echo $registro['codAgend']; ?>">
+                            <button type="submit" name="delete" class="btn btn-outline-danger">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="col-auto">
+                            <input type="hidden" name="codAgend" value="<?php echo $registro['codAgend']; ?>">
+                            <button type="submit" name="edit" class="btn btn-outline-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                    <path
+                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fill-rule="evenodd"
+                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="col-auto">
+                            <input type="hidden" name="codAgend" value="<?php echo $registro['codAgend']; ?>">
+                            <button type="submit" name="concluidaAgend" class="btn btn-outline-success">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                                </svg>
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        <?php endforeach; ?>
+
     <?php endif; ?>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

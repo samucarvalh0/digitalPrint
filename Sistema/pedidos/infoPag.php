@@ -12,7 +12,7 @@ $erro = false;
 $codPed = is_array($_SESSION['codPed']) ? $_SESSION['codPed'][0] : $_SESSION['codPed'];
 
 try {
-    $sql = "SELECT pagEntg.*, pedidos.nomeCli FROM pagEntg LEFT JOIN pedidos ON pagentg.codPed = pedidos.codPed WHERE pagEntg.codPed = :codPed";
+    $sql = "SELECT pagentg.*, pedidos.nomeCli FROM pagentg LEFT JOIN pedidos ON pagentg.codPed = pedidos.codPed WHERE pagentg.codPed = :codPed";
     $stmt = $conexao->prepare($sql);
     $stmt->bindParam(':codPed', $codPed, PDO::PARAM_INT); // Vincula o valor de codPed
     $stmt->execute();
@@ -43,8 +43,9 @@ if (isset($_POST['edit'])) {
     $_SESSION['codPed'] = [
         $_POST['codPed']
     ];
+
+    $_SESSION['origem'] = ["infoPag.php"];
     header("Location: editPag.php");
-    exit;
 }
 
 if (isset($_POST['pago'])) {

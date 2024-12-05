@@ -56,7 +56,7 @@ if (isset($_POST['salvar'])) {  // Verifica se o formulário foi enviado
 
 if (isset($_POST['proximo'])) {
 
-    if ($_SESSION['origem']) {
+    if ($_SESSION['origem'] == 'confirmacao.php') {
         header("Location: confirmacao.php");
         exit;
     } else {
@@ -65,7 +65,7 @@ if (isset($_POST['proximo'])) {
 }
 
 if (isset($_POST['reset'])) {
-    header("Location: " . $_SERVER['PHP_SELF']);
+    header("Location: cadPed2.php");
 }
 
 if (isset($_POST['delete'])) {
@@ -91,7 +91,7 @@ if (isset($_POST['edit'])) {
         $_POST['cod_itensPed']
     ];
 
-    $_SESSION['origem'] = ["cadped2.php"];
+    $_SESSION['origem'] = ["cadPed2.php"];
     header("Location: editItensPed.php");
     exit;
 }
@@ -120,6 +120,13 @@ if (isset($_POST['cancelar'])) {
     }
 }
 
+if (isset($_POST['voltar'])){
+    if ($_SESSION['origem']){
+        header('location: ' . $_SESSION['origem'][0]);
+    } else {
+        header('location: cadPed.php');
+    }
+}
 
 $sql_categorias = "SELECT * FROM categoria";
 $stmt = $conexao->prepare($sql_categorias);
@@ -401,8 +408,7 @@ $showNovCat = $novCat === 'Novo';
 
             <!-- Botões centralizados abaixo das colunas -->
             <div class="row mt-4 btn-group-custom">
-                <button type="button" class="btn btn-outline-danger btn-personalizado"
-                    onclick="window.location.href='cadPed.php';">Voltar</button>
+                <button type="button" class="btn btn-outline-danger btn-personalizado" name="voltar">Voltar</button>
                 <button type="submit" name="cancelar" class="btn btn-outline-dark btn-personalizado">Cancelar
                     Pedido</button>
                 <button type="submit" name="proximo" class="btn btn-success btn-personalizado">Prosseguir</button>

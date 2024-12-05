@@ -3,6 +3,8 @@ include('../protect.php'); // Inclui a função de proteção ao acesso da pági
 require_once('../conexao.php');
 $conexao = novaConexao();
 
+unset($_SESSION['origem']);
+
 $registros = [];
 $erro = false;
 

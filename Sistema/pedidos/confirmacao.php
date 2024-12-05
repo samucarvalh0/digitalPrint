@@ -70,7 +70,6 @@ try {
             echo "Erro: " . $e->getMessage();
         }
     }
-
 } catch (PDOException $e) {
     $erro = true; // Configura erro se houver uma exceção
     echo "Erro: " . $e->getMessage();
@@ -131,7 +130,18 @@ if (isset($_POST['delete'])) {
 if (isset($_POST['adicionar'])) {
     $_SESSION['origem'] = ["confirmacao.php"];
     header("Location: cadPed2.php");
-    exit;
+}
+
+if (isset($_POST['editPag'])) {
+    $_SESSION['origem'] = ["confirmacao.php"];
+    $_SESSION['codPed'] = [$_POST['codPed']];
+    header("Location: editPag.php");
+}
+
+if (isset($_POST['editEntg'])) {
+     $_SESSION['origem'] = ["confirmacao.php"];
+    $_SESSION['codPed'] = [$_POST['codPed']];
+    header("Location: editEntg.php");
 }
 ?>
 
@@ -397,74 +407,98 @@ if (isset($_POST['adicionar'])) {
                     </div>
                 </div>
 
-                <div class="row m-3">
-                    <div class="col-4">
-                        <div class="form-group mb-3">
-                            <p><strong>Entrada:</strong><br>
-                                <input type="radio" id="entradaNao" name="entrada" value="nao" class="form-check-input"
-                                    <?php echo ($pagEntg['entrada'] == 'nao') ? 'checked' : ''; ?>>
-                                <label class="form-check-label" for="entradaNao">Não</label>
 
-                                <input type="radio" id="entradaSim" name="entrada" value="sim"
-                                    class="form-check-input ms-3" <?php echo ($pagEntg['entrada'] == 'sim') ? 'checked' : ''; ?>>
-                                <label class="form-check-label" for="entradaSim">Sim</label>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group mb-3">
-                            <p><strong>Forma de Pagamento:</strong><br>
-                            <div class="row mb-3">
-                                <div class="col-6">
-                                    <input type="radio" name="formaPag" class="form-check-input" value="Dinheiro" <?php echo ($pagEntg['formaPag'] == 'Dinheiro') ? 'checked' : ''; ?>>
-                                    <label class="form-check-label" for="dinheiro">Dinheiro</label><br>
-                                </div>
-                                <div class="col-6">
-                                    <input type="radio" name="formaPag" class="form-check-input" value="Pix" <?php echo ($pagEntg['formaPag'] == 'Pix') ? 'checked' : ''; ?>>
-                                    <label class="form-check-label" for="Pix">Pix</label><br>
+
+                <div class="row justify-content-center mt-2">
+                    <?php if ($pagEntg['entrada'] == "sim") { ?>
+
+                        <div class="row justify-content-center m-3">
+                            <div class="col-4">
+                                <div class="form-group mb-3">
+                                    <p><strong>Entrada:</strong><br>
+                                        <input type="radio" id="entradaSim" name="entrada" value="sim"
+                                            class="form-check-input ms-3" <?php echo ($pagEntg['entrada'] == 'sim') ? 'checked' : ''; ?>>
+                                        <label class="form-check-label" for="entradaSim">Sim</label>
+                                    </p>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <input type="radio" name="formaPag" class="form-check-input"
-                                        value="Cartao de Crédito" <?php echo ($pagEntg['formaPag'] == 'Cartao de Crédito') ? 'checked' : ''; ?>>
-                                    <label class="form-check-label" for="cartaoCredito">Crédito</label><br>
-                                </div>
-                                <div class="col-6">
-                                    <input type="radio" name="formaPag" class="form-check-input"
-                                        value="Cartao de Débito" <?php echo ($pagEntg['formaPag'] == 'Cartao de Débito') ? 'checked' : ''; ?>>
-                                    <label class="form-check-label" for="cartaoDebito">Débito</label><br><br>
-                                </div>
-                            </div>
-                            </p>
                         </div>
-                    </div>
 
-                    <div class="col-4">
-                        <div class="form-group mb-3">
-                            <p><strong>Valor da entrada:</strong><br>
-                                <input type="text" name="vEntrada" class="form-control"
-                                    value="<?php echo htmlspecialchars($pagEntg['valorEnt']); ?>">
-                            </p>
+                        <div class="col-4">
+                            <div class="form-group mb-3">
+                                <p><strong>Forma de Pagamento:</strong><br>
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <input type="radio" name="formaPag" class="form-check-input" value="Dinheiro" <?php echo ($pagEntg['formaPag'] == 'Dinheiro') ? 'checked' : ''; ?>>
+                                        <label class="form-check-label" for="dinheiro">Dinheiro</label><br>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="radio" name="formaPag" class="form-check-input" value="Pix" <?php echo ($pagEntg['formaPag'] == 'Pix') ? 'checked' : ''; ?>>
+                                        <label class="form-check-label" for="Pix">Pix</label><br>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="radio" name="formaPag" class="form-check-input"
+                                            value="Cartao de Crédito" <?php echo ($pagEntg['formaPag'] == 'Cartao de Crédito') ? 'checked' : ''; ?>>
+                                        <label class="form-check-label" for="cartaoCredito">Crédito</label><br>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="radio" name="formaPag" class="form-check-input"
+                                            value="Cartao de Débito" <?php echo ($pagEntg['formaPag'] == 'Cartao de Débito') ? 'checked' : ''; ?>>
+                                        <label class="form-check-label" for="cartaoDebito">Débito</label><br><br>
+                                    </div>
+                                </div>
+                                </p>
+                            </div>
                         </div>
+
+                        <div class="col-4">
+                            <div class="form-group mb-3">
+                                <p><strong>Valor da entrada:</strong><br>
+                                    <input type="text" name="vEntrada" class="form-control"
+                                        value="<?php echo htmlspecialchars($pagEntg['valorEnt']); ?>">
+                                </p>
+                            </div>
+                        </div>
+                </div>
+
+            <?php } else { ?>
+
+                <div class="row justify-content-center m-3">
+                    <div class="form-group mb-3">
+                        <p><strong>Entrada:</strong><br>
+                            <input type="radio" id="entradaNao" name="entrada" value="nao" class="form-check-input"
+                                <?php echo ($pagEntg['entrada'] == 'nao') ? 'checked' : ''; ?>>
+                            <label class="form-check-label" for="entradaNao">Não</label>
+                        </p>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-3">
+            <?php } ?>
+            <div class="row justify-content-center mb-5">
+                <div class="col-3">
+                <input type="hidden" name="codPed" value="<?php echo $pagEntg['codPed']; ?>">
+                    <button type="submit" class="btn btn-outline-primary" name="editPag">Editar</button>
+                </div>
+            </div>
+
+            <hr>
+
+            <?php if ($pagEntg['entrega'] == 'entrega') { ?>
+                <div class="row justify-content-center">
+                    <div class="col-4">
                         <div class="form-group mb-3">
                             <p><strong>Entrega:</strong><br>
-                                <input type="radio" id="retirada" name="entrega" value="retirada"
-                                    class="form-check-input" <?php echo ($pagEntg['entrega'] == 'retirada') ? 'checked' : ''; ?>>
-                                <label class="form-check-label" for="retirada">Retirada</label>
-
                                 <input type="radio" id="entrega" name="entrega" value="entrega"
                                     class="form-check-input ms-3" <?php echo ($pagEntg['entrega'] == 'entrega') ? 'checked' : ''; ?>>
                                 <label class="form-check-label" for="entrega">Entrega</label>
                             </p>
                         </div>
                     </div>
-                    <div class="col-3">
+                </div>
+                <div class="row">
+                    <div class="col-4">
                         <div class="form-group mb-3">
                             <p><strong>Logradouro:</strong><br>
                                 <input type="text" name="logradouro" class="form-control"
@@ -472,7 +506,7 @@ if (isset($_POST['adicionar'])) {
                             </p>
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                         <div class="form-group mb-3">
                             <p><strong>Número:</strong><br>
                                 <input type="text" name="numero" class="form-control"
@@ -480,7 +514,7 @@ if (isset($_POST['adicionar'])) {
                             </p>
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                         <div class="form-group mb-3">
                             <p><strong>Bairro:</strong><br>
                                 <input type="text" name="bairro" class="form-control"
@@ -515,7 +549,27 @@ if (isset($_POST['adicionar'])) {
                         </div>
                     </div>
                 </div>
+            <?php } else { ?>
+                <div class="row justify-content-center">
+                    <div class="form-group mb-3">
+                        <p><strong>Entrega:</strong><br>
+                            <input type="radio" id="retirada" name="entrega" value="retirada"
+                                class="form-check-input" <?php echo ($pagEntg['entrega'] == 'retirada') ? 'checked' : ''; ?>>
+                            <label class="form-check-label" for="retirada">Retirada</label>
+                        </p>
+                    </div>
+                </div>
+            <?php } ?>
+
+            <div class="row justify-content-center mb-5">
+                <div class="col-3">
+                <input type="hidden" name="codPed" value="<?php echo $pagEntg['codPed']; ?>">
+                    <button type="submit" class="btn btn-outline-primary" name="editEntg">Editar</button>
+                </div>
             </div>
+            </div>
+
+            <hr>
 
             <div class="row mt-4 btn-group-custom">
 

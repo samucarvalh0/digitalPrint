@@ -8,10 +8,41 @@ $codPro = is_array($_SESSION['codPro']) ? $_SESSION['codPro'][0] : $_SESSION['co
 $sql_lista = "SELECT * FROM produtos WHERE codPro = $codPro";
 $stmt = $conexao->prepare($sql_lista);
 $stmt->execute();
-$lista = $stmt->fetch(PDO::FETCH_ASSOC); // Recupera todos os registros
+$lista = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {  // Verifica se o formulário foi enviado
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Verifica se o formulário foi enviado
     try {
+        $post = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+
+        // Define o diretório para armazenar as imagens
+        $dir = 'img1/';
+
+        // Inicializa a variável $new_name com a imagem atual
+        $new_name = $lista['imagem'];
+
+        // Verifica se um novo arquivo foi enviado
+        if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
+
+            unlink($lista['imagem']);
+            $new_name = $dir . uniqid() . '.png';
+
+            // Verifica e cria o diretório, se necessário
+            if (!is_dir($dir) && !mkdir($dir, 0777, true)) {
+                die('Erro ao criar o diretório de upload.');
+            }
+
+            // Move o arquivo para o diretório
+            if (!move_uploaded_file($_FILES['file']['tmp_name'], $new_name)) {
+                die('Erro ao mover o arquivo para o diretório.');
+            }
+
+            // Remove a imagem anterior, se existir
+            if (file_exists($lista['imagem'])) {
+                unlink($lista['imagem']);
+            }
+        }
+
+        // Lógica para lidar com categoria
         $codCat = null;
         $nomeCategoria = null;
 
@@ -28,23 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {  // Verifica se o formulário foi e
 
                 // Recuperando o código da categoria recém inserida
                 $codCat = $conexao->lastInsertId();
-
-                // Inserindo o produto na tabela 'produtos'
-                $sql_insertProd = "UPDATE produtos SET codCat = :p_p, nomeCat = :p_n, medida = :p_m, valor = :p_v WHERE codPro = :codPro";
-                $stmt = $conexao->prepare($sql_insertProd);
-
-                // Associar os valores aos placeholders
-                $stmt->bindValue(':p_p', $codCat);
-                $stmt->bindValue(':p_n', $nomeCategoria);
-                $stmt->bindValue(':p_m', $_POST['medida']);
-                $stmt->bindValue(':p_v', $_POST['valor']);
-                $stmt->bindValue(':codPro', $codPro);
-
-                // Executar a SQL
-                $stmt->execute();
-
-                header("Location: ./editProd.php");
-                exit; // Para garantir que o código pare de executar após o redirecionamento
             }
         } else {
             // Se uma categoria existente foi selecionada, usamos o ID dela
@@ -52,32 +66,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {  // Verifica se o formulário foi e
         }
 
         // Verificar se todos os campos obrigatórios estão preenchidos
-        if ($codCat && isset($_POST['medida'], $_POST['valor'])) {
+        if ($codCat && isset($_POST['medida'], $_POST['valor'], $_POST['exibicao'])) {
+            // Obter o nome da categoria, se necessário
+            if (!isset($nomeCategoria)) {
+                $sql_selectNome = "SELECT nome FROM categoria WHERE codCat = :id";
+                $stmt = $conexao->prepare($sql_selectNome);
+                $stmt->bindValue(':id', $codCat); // Usando bindValue para evitar SQL injection
+                $stmt->execute();
+                $nome = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            $id = $_POST['codCat'];
-            $sql_selectNome = "SELECT nome FROM categoria WHERE codCat = :id";
-            $stmt = $conexao->prepare($sql_selectNome);
-            $stmt->bindValue(':id', $id); // Usando bindValue para evitar SQL injection
-            $stmt->execute();
-            $nome = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($nome) {
-                $nomeCat = $nome['nome']; // Acessa o valor 'nome' do array associativo
+                if ($nome) {
+                    $nomeCategoria = $nome['nome']; // Acessa o valor 'nome' do array associativo
+                }
             }
 
-            $sql = "UPDATE produtos SET codCat = :p_p, nomeCat = :p_n, medida = :p_m, valor = :p_v WHERE codPro = :codPro";
+            // Atualizando o produto na tabela 'produtos'
+            $sql = "UPDATE produtos SET codCat = :p_p, nomeExib = :p_ne, nomeCat = :p_n, medida = :p_m, valor = :p_v, imagem = :p_img WHERE codPro = :codPro";
             $stmt = $conexao->prepare($sql);
 
             // Associar os valores aos placeholders
             $stmt->bindValue(':p_p', $codCat);
-            $stmt->bindValue(':p_n', $nomeCat ?? $nomeCategoria); // Usando o nome da nova categoria ou existente
+            $stmt->bindValue(':p_ne', $_POST['exibicao']);
+            $stmt->bindValue(':p_n', $nomeCategoria);
             $stmt->bindValue(':p_m', $_POST['medida']);
             $stmt->bindValue(':p_v', $_POST['valor']);
-            $stmt->bindValue(':codPro', $codPro);
+            $stmt->bindValue(':p_img', $new_name); // Atualiza apenas se necessário
+            $stmt->bindValue(':codPro', $codPro); // ID do produto
 
             // Executar a SQL
             $stmt->execute();
 
+            // Redireciona após sucesso
             header("Location: ./editProd.php");
             exit; // Para garantir que o código pare de executar após o redirecionamento
         }
@@ -189,9 +208,15 @@ $showNovCat = $novCat === 'Novo';
 
     <div class="container container-custom">
         <h3 class="text-center mb-4">Edição de Produto</h3>
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             <div class="row row-custom">
                 <div class="col-custom">
+                    <div class="form-group mb-3">
+                        <label class="form-label">Nome de Exibição:</label>
+                        <input type="text" class="form-control" name="exibicao"
+                            placeholder="Nome que aparecerá no portifólio" required
+                            value="<?php echo ($lista['nomeExib']); ?>">
+                    </div>
                     <div class="form-group mb-3">
                         <label class="form-label">Categoria:</label>
                         <select class="form-select" id="categoria" name="codCat" onchange="toggleNovCat(this.value)">
@@ -225,11 +250,20 @@ $showNovCat = $novCat === 'Novo';
                             value="<?php echo ($lista['valor']); ?>">
                         <span class="aviso">Utilize ponto ao invés de vírgula</span>
                     </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Imagem:</label>
+                        <figure>
+                            <img src="<?php echo ($lista['imagem']); ?>" style="border-radius: 20px; height: 300px;">
+                        </figure>
+                        <input class="form-control" type="file" name="file" style="width: 50%;">
+                    </div>
                 </div>
             </div>
 
             <div class="row mt-4 btn-group-custom">
-                <button class="btn btn-outline-danger btn-personalizado" onclick="window.location.href='editProd.php';">Cancelar</button>
+                <button class="btn btn-outline-danger btn-personalizado"
+                    onclick="window.location.href='editProd.php';">Cancelar</button>
                 <button type="submit" class="btn btn-success btn-personalizado">Atualizar produto</button>
             </div>
         </form>
