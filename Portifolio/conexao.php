@@ -1,10 +1,10 @@
 <?php
 function novaConexao()
 {
-    $usuario = 'root';
-    $senha = '';
-    $database = 'digital_print';
-    $host = 'localhost';
+    $usuario = 'if0_37749743';
+    $senha = 'aappoo09Digital';
+    $database = 'if0_37749743_digital_print';
+    $host = 'sql200.infinityfree.com';
 
     try {
         // Conexão usando PDO

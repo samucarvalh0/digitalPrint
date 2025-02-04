@@ -17,7 +17,7 @@ if (isset($_POST['enviar'])) {
         $mail->Host = 'smtp.gmail.com'; // Servidor SMTP
         $mail->SMTPAuth = true; // Ativar autenticação SMTP
         $mail->Username = 'cttdigitalprintcpv@gmail.com'; // Seu e-mail
-        $mail->Password = 'adrfnyhtstvxudni'; // Sua senha de app
+        $mail->Password = 'soimwtlnakrxcrmn'; // Sua senha de app
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Habilitar criptografia TLS
         $mail->Port = 587; // Porta SMTP (Gmail usa 587)
 

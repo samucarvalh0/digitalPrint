@@ -271,11 +271,11 @@ if (isset($_POST['filtra'])) {
 
         <article class="columns">
 
-            <div class="row justify-content-center text-center">
+            <div class="justify-content-center text-center">
 
-                <div class="col-12 cont">
+                <div>
 
-                    <h1 class="display-5 cont" style="margin-top: 65px; margin-bottom: 65px;">CONHEÇA NOSSOS SERVIÇOS
+                    <h1 class="display-5 cont" style="margin-top: 60px; margin-bottom: 60px;">CONHEÇA NOSSOS SERVIÇOS
 
                     </h1>
 
